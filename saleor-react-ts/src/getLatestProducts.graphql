@@ -1,0 +1,14 @@
+query getLatestProducts($keyword: String) {
+  products(first: 5, filter: { search: $keyword }) {
+    edges {
+      node {
+        id
+        name
+        description
+        category {
+          name
+        }
+      }
+    }
+  }
+}
