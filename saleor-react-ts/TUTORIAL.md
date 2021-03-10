@@ -17,13 +17,7 @@ Before you begin this guide you'll need the following:
 
 ## Creating a Basic React Application with TypeScript
 
-We will use the [Create React App](https://github.com/facebook/create-react-app) to get quickly started. To use Create React App you need to globally install it on your computer, if you haven't already, with:
-
-```bash
-yarn global add create-react-app
-```
-
-After installing `create-react-app` you can create a new application using:
+We will use the [Create React App](https://github.com/facebook/create-react-app) to get quickly started. You can create a new `create-react-app` application using the command:
 
 ```bash
 npx create-react-app saleor-demo --template typescript
@@ -63,7 +57,7 @@ query getLatestProducts {
 }
 ```
 
-This query retrieves the last 5 products from the Saleor GraphQL API and returns the fields `id`, `name`, and `description`. Also, you can see the fields `edges` and `nodes` being retrieved, which are useful for the ["Connections" pattern](https://relay.dev/graphql/connections.htm) in GraphQL and Relay. In GraphQL there are two main libraries for data fetching, which are Relay and Apollo Client. In this post, however, we won't be using that concept as we're using Apollo instead of Relay as our GraphQL Client because of a smoother learning curve.
+This query retrieves the last 5 products from the Saleor GraphQL API and returns the fields `id`, `name`, and `description`. Also, you can see the fields `edges` and `nodes` being retrieved, which are useful for the ["Connections" pattern](https://relay.dev/graphql/connections.htm) in GraphQL and Relay. In GraphQL there are two main libraries for data fetching, which are Relay and Apollo Client. In this tutorial, however, we won't be using that concept as we're using Apollo instead of Relay as our GraphQL Client because of a smoother learning curve.
 
 ### Setup Apollo Client
 
@@ -127,7 +121,7 @@ query getLatestProducts {
 
 This query should be used as input for an Apollo `useQuery` Hook, that returns three variables: `loading`, `data`, and `error`. These variables are pretty self-explanatory and can be used to define what you want to return from your React application.
 
-The `useQuery` Hook can be imported from `@apollo/client`, just as the `gql` function to parse the GraphQL query language in your application. These can be imported in a new file called `Products.js` in the `src` directory:
+The `useQuery` Hook can be imported from `@apollo/client`, and can be imported in a new file called `Products.tsx` in the `src` directory:
 
 ```tsx
 // src/Products.tsx
@@ -137,17 +131,17 @@ import { loader } from 'graphql.macro';
 const getLatestProducts = loader('src/getLatestProducts.graphql');
 
 function Products() {
-  const { loading, error, data } = useQuery<LatestProducts>(getLatestProducts);
+  const { loading, error, data } = useQuery<any>(getLatestProducts);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   if (data) {
-    const latestProducts = data.products?.edges;
+    const latestProducts = data.products?.edges || [];
 
     return (
       <div>
-        {latestProducts?.length &&
+        {latestProducts?.length > 0 &&
           latestProducts.map(({ node: { id, name, description } }) => (
             <div key={id}>
               <h3>{name}</h3>
@@ -164,7 +158,7 @@ function Products() {
 export default Products;
 ```
 
-In this file, the query `getLatestProducts` is passed to the `useQuery` Hook and used to retrieve the last 5 products from the GraphQL API. The data that's returned is being destructed and rendered in the `Products` component. We haven't added any type definitions to this file, which we definitely should as this is a TypeScript application.
+In this file, the query `getLatestProducts` is passed to the `useQuery` Hook and used to retrieve the last 5 products from the GraphQL API. The data that's returned is being destructed and rendered in the `Products` component. We haven't added any type definitions to this file, which we'll do later on in this tutorial using GraphQL Code Generator!
 
 The `useQuery` Hook accepts a generic for the return type of the data that it's fetching which, as we're using GraphQL, has the same shape as the GraphQL query. You can use the GraphQL Playground to check what the shape of the output is, in case you're in doubt. Afterwards, add the new type `LatestProduct` in the `Products` component and add it to the Hook:
 
@@ -193,10 +187,10 @@ function Products() {
   // ...
 ```
 
-To render this in the browser we need to alter the `src/App.js` file and replace its contents with the following:
+To render this in the browser we need to alter the `src/App.tsx` file and replace its contents with the following:
 
 ```js
-// src/App.js
+// src/App.tsx
 import Products from './Products';
 
 function App() {
@@ -401,11 +395,11 @@ function Products({ keyword = 'juice' }: ProductsProps) {
   if (error) return <p>Error :(</p>;
 
   if (data) {
-    const latestProducts = data.products?.edges;
+    const latestProducts = data.products?.edges || [];
 
     return (
       <div>
-        {latestProducts?.length &&
+        {latestProducts?.length > 0 &&
           latestProducts.map(({ node: { id, name, description } }) => (
             <div key={id}>
               <h3>{name}</h3>
@@ -451,14 +445,12 @@ The `name` of the category is nested within the `category` object, and to displa
 
     return (
       <div>
-        {latestProducts?.length &&
+        {latestProducts?.length > 0 &&
           latestProducts.map(({ node: { id, name, description, category } }) => (
             <div key={id}>
               <h3>{name}</h3>
               <p>{description}</p>
-              <ul>
-                  <li>{category?.name}</li>
-              </ul>
+              <p>{category?.name}</p>
             </div>
           ))}
       </div>

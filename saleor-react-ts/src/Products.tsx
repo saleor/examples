@@ -15,19 +15,17 @@ function Products({ keyword = 'juice' }: ProductsProps) {
   if (error) return <p>Error :(</p>;
 
   if (data) {
-    const latestProducts = data.products?.edges;
+    const latestProducts = data.products?.edges || [];
 
     return (
       <div>
-        {latestProducts?.length &&
+        {latestProducts?.length > 0 &&
           latestProducts.map(
             ({ node: { id, name, description, category } }) => (
               <div key={id}>
                 <h3>{name}</h3>
                 <p>{description}</p>
-                <ul>
-                  <li>{category?.name}</li>
-                </ul>
+                <p>{category?.name}</p>
               </div>
             ),
           )}
