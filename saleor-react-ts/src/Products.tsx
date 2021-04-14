@@ -18,14 +18,16 @@ function Products({ keyword = 'juice' }: ProductsProps) {
     const latestProducts = data.products?.edges || [];
 
     return (
-      <div>
+      <div className='d-grid gap-3'>
         {latestProducts?.length > 0 &&
           latestProducts.map(
             ({ node: { id, name, description, category } }) => (
-              <div key={id}>
-                <h3>{name}</h3>
-                <p>{description}</p>
-                <p>{category?.name}</p>
+              <div key={id} className='card'>
+                <div className='card-body'>
+                  <h3 className='card-title'>{name}</h3>
+                  <p className='card-subtitle'>{category?.name}</p>
+                  <p>{description}</p>
+                </div>
               </div>
             ),
           )}

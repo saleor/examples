@@ -6,12 +6,20 @@ function App() {
   const [keyword, setKeyword] = useState('');
 
   return (
-    <div>
-      <header>
-        <h1>Saleor React Application</h1>
-      </header>
-      <SearchBar setKeyword={setKeyword} />
-      <Products keyword={keyword} />
+    <div className='container'>
+      <div className='row'>
+        <header className='navbar navbar-light bg-light'>
+          <div className='container-fluid'>
+            <h1 className='navbar-brand'>Saleor React Application</h1>
+          </div>
+        </header>
+      </div>
+      <div className='row'>
+        <SearchBar setKeyword={setKeyword} />
+      </div>
+      <div className='row'>
+        <Products keyword={keyword} />
+      </div>
     </div>
   );
 }

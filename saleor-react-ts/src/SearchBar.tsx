@@ -14,16 +14,26 @@ function SearchBar({ setKeyword }: SearchBarProps) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label>
-        Search:
+    <form className='row g-3' onSubmit={onSubmit}>
+      <div className='col-auto'>
+        <label htmlFor='search' className='col-sm-2 col-form-label'>
+          Search:
+        </label>
+      </div>
+      <div className='col-auto'>
         <input
+          id='search'
+          className='form-control'
           type='text'
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
         />
-      </label>
-      <input type='submit' value='Submit' />
+      </div>
+      <div className='col-auto'>
+        <button type='submit' className='btn btn-primary mb-3'>
+          Submit
+        </button>
+      </div>
     </form>
   );
 }
