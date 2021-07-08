@@ -4,3 +4,6 @@
 [submodule "example-react-cra-typescript"]
 	path = example-react-cra-typescript
 	url = https://github.com/saleor/example-react-cra-typescript
+[submodule "example-react-nextjs-apollo-typescript"]
+	path = example-react-nextjs-apollo-typescript
+	url = https://github.com/saleor/example-react-nextjs-apollo-typescript
