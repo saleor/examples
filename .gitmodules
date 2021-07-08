@@ -7,3 +7,6 @@
 [submodule "example-react-nextjs-apollo-typescript"]
 	path = example-react-nextjs-apollo-typescript
 	url = https://github.com/saleor/example-react-nextjs-apollo-typescript
+[submodule "example-flutter"]
+	path = example-flutter
+	url = https://github.com/saleor/example-flutter
