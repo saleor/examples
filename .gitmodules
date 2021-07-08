@@ -1,0 +1,6 @@
+[submodule "example-react-native-typescript"]
+	path = example-react-native-typescript
+	url = https://github.com/saleor/example-react-native-typescript
+[submodule "example-react-cra-typescript"]
+	path = example-react-cra-typescript
+	url = https://github.com/saleor/example-react-cra-typescript
