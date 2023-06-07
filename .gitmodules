@@ -10,3 +10,6 @@
 [submodule "example-flutter"]
 	path = example-flutter
 	url = https://github.com/saleor/example-flutter
+[submodule "example-auth-openidconnect-nextjs-pages-apollo"]
+	path = example-auth-openidconnect-nextjs-pages-apollo
+	url = https://github.com/saleor/example-auth-openidconnect-nextjs-pages-apollo
