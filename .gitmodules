@@ -13,3 +13,6 @@
 [submodule "example-auth-openidconnect-nextjs-pages-apollo"]
 	path = example-auth-openidconnect-nextjs-pages-apollo
 	url = https://github.com/saleor/example-auth-openidconnect-nextjs-pages-apollo
+[submodule "example-auth-sdk"]
+	path = example-auth-sdk
+	url = git@github.com:saleor/example-auth-sdk
