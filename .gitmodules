@@ -16,3 +16,6 @@
 [submodule "example-auth-sdk"]
 	path = example-auth-sdk
 	url = git@github.com:saleor/example-auth-sdk
+[submodule "example-nextjs-app-router-starter"]
+	path = example-nextjs-app-router-starter
+	url = git@github.com:saleor/example-nextjs-app-router-starter.git
