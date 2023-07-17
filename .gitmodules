@@ -19,3 +19,6 @@
 [submodule "example-nextjs-app-router-starter"]
 	path = example-nextjs-app-router-starter
 	url = git@github.com:saleor/example-nextjs-app-router-starter.git
+[submodule "example-nextjs-stripe"]
+	path = example-nextjs-stripe
+	url = https://github.com/saleor/example-nextjs-stripe
