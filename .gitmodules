@@ -22,3 +22,6 @@
 [submodule "example-nextjs-stripe"]
 	path = example-nextjs-stripe
 	url = https://github.com/saleor/example-nextjs-stripe
+[submodule "example-auth-nextjs-pages-router"]
+	path = example-auth-nextjs-pages-router
+	url = git@github.com:saleor/example-auth-nextjs-pages-router.git
