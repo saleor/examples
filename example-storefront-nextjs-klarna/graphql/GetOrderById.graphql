@@ -1,0 +1,36 @@
+query GetOrderById($orderId: ID!) {
+	order(id: $orderId) {
+		id
+		number
+		statusDisplay
+		lines {
+			id
+			productName
+			quantity
+			quantityFulfilled
+			thumbnail(size: 256) {
+				url
+			}
+			unitPrice {
+				gross {
+					amount
+					currency
+				}
+			}
+		}
+		total {
+			tax {
+				amount
+				currency
+			}
+			gross {
+				amount
+				currency
+			}
+		}
+		totalCharged {
+			amount
+			currency
+		}
+	}
+}

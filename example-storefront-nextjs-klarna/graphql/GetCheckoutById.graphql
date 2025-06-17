@@ -1,0 +1,9 @@
+query GetCheckoutById($id: ID!) {
+	checkout(id: $id) {
+		id
+		availablePaymentGateways {
+			id
+			name
+		}
+	}
+}

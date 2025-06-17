@@ -1,0 +1,21 @@
+query FetchAllCheckouts {
+  checkouts(first: 10) {
+    edges {
+      node {
+        id
+        created
+        lines {
+          variant {
+            product {
+              name
+              thumbnail {
+                url
+                alt
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
