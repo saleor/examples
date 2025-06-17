@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "oneOf": [
+    {
+      "additionalProperties": true,
+      "properties": {
+        "sq_state": { "const": "approved" },
+        "approved_since": { "type": "number" },
+        "order_ref": { "type": "string" },
+        "order_ref_1": { "type": "string" },
+        "product_code": { "type": "string" },
+        "channelId": { "type": "string" },
+        "transactionId": { "type": "string" },
+        "checkoutId": { "type": "string" }
+      },
+      "required": [
+        "sq_state",
+        "approved_since",
+        "order_ref",
+        "order_ref_1",
+        "product_code",
+        "channelId",
+        "transactionId",
+        "checkoutId"
+      ]
+    },
+    {
+      "additionalProperties": true,
+      "properties": {
+        "sq_state": { "const": "needs_review" },
+        "needs_review_since": { "type": "number" },
+        "order_ref": { "type": "string" },
+        "order_ref_1": { "type": "string" },
+        "product_code": { "type": "string" },
+        "channelId": { "type": "string" },
+        "transactionId": { "type": "string" },
+        "checkoutId": { "type": "string" }
+      },
+      "required": [
+        "sq_state",
+        "needs_review_since",
+        "order_ref",
+        "order_ref_1",
+        "product_code",
+        "channelId",
+        "transactionId",
+        "checkoutId"
+      ]
+    }
+  ]
+}

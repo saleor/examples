@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "payment_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "type": "string"
+                },
+                "campaign": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "long_title": {
+                  "type": "string"
+                },
+                "claim": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "cost_description": {
+                  "type": "string"
+                },
+                "starts_at": {
+                  "type": "string"
+                },
+                "ends_at": {
+                  "type": "string"
+                },
+                "min_amount": {
+                  "type": "number"
+                },
+                "max_amount": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "product",
+                "title",
+                "long_title",
+                "claim",
+                "icon",
+                "starts_at",
+                "ends_at",
+                "min_amount"
+              ]
+            }
+          },
+          "icon": {}
+        },
+        "required": ["title", "description", "methods", "icon"]
+      }
+    }
+  },
+  "required": ["payment_options"]
+}

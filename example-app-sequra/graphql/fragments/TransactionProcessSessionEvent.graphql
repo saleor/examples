@@ -1,0 +1,60 @@
+fragment TransactionProcessSessionEvent on TransactionProcessSession {
+  __typename
+  version
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  data
+  merchantReference
+  action {
+    amount
+    currency
+    actionType
+  }
+  transaction {
+    id
+  }
+  sourceObject {
+    __typename
+    ... on Checkout {
+      id
+      languageCode
+      userEmail: email
+      billingAddress {
+        ...TransactionInitializeSessionAddress
+      }
+      shippingAddress {
+        ...TransactionInitializeSessionAddress
+      }
+      total: totalPrice {
+        gross {
+          ...Money
+        }
+        tax {
+          ...Money
+        }
+      }
+      ...OrderOrCheckoutLines
+    }
+    ... on Order {
+      id
+      languageCodeEnum
+      userEmail
+      billingAddress {
+        ...TransactionInitializeSessionAddress
+      }
+      shippingAddress {
+        ...TransactionInitializeSessionAddress
+      }
+      total {
+        gross {
+          ...Money
+        }
+        tax {
+          ...Money
+        }
+      }
+      ...OrderOrCheckoutLines
+    }
+  }
+}

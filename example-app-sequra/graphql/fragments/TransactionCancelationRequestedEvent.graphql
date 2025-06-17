@@ -1,0 +1,21 @@
+fragment TransactionCancelationRequestedEvent on TransactionCancelationRequested {
+  __typename
+  version
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  action {
+    actionType
+    amount
+  }
+  transaction {
+    id
+    pspReference
+    sourceObject: order {
+      channel {
+        id
+        slug
+      }
+    }
+  }
+}

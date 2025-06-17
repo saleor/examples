@@ -1,0 +1,1060 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "order": {
+      "properties": {
+        "cart": {
+          "description": "Fields describing the shopping cart",
+          "properties": {
+            "cart_ref": {
+              "description": "Shop's unique id for this basket. Useful if shopper has trouble checking out. Example: \\\"123\\\".",
+              "oneOf": [{ "type": "string" }, { "type": "number" }]
+            },
+            "created_at": {
+              "description": "When shopper put the first item in the cart. Example: \\\"2013-10-18T12:25:20+01:00\\\".",
+              "type": "string"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "gift": {
+              "description": "Set to true if shopper has indicated that this is a gift. Example: false.",
+              "type": "boolean"
+            },
+            "items": {
+              "description": "List of items in the order. The list can contain zero or more instances of each item type.",
+              "items": {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "category": {
+                        "description": "Name of category. Will not be shown to shopper. Useful against fraud. Example: \\\"ipod-accesorios\\\".",
+                        "type": "string"
+                      },
+                      "description": {
+                        "description": "Product description. Will not be shown to shopper. Useful against fraud. Example: \\\"Este estuche de cuero de última moda ...\\\".",
+                        "type": "string"
+                      },
+                      "downloadable": {
+                        "description": "Can the buyer access or consume the product without a physical delivery? PDFs, e-tickets, software, etc are downloadable. Example: false.",
+                        "type": "boolean"
+                      },
+                      "manufacturer": {
+                        "description": "Name of manufacturer. Will not be shown to shopper. Useful against fraud. Example: \\\"Apple\\\".",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "A description to include in the payment instructions. Example: \\\"Leather Case (iPod nano) - Negro / Chocolate\\\".",
+                        "type": "string"
+                      },
+                      "perishable": {
+                        "description": "A product is perishable if it loses its value if it is not delivered on time. Examples are fresh fruit and physical tickets. Example: false.",
+                        "type": "boolean"
+                      },
+                      "personalized": {
+                        "description": "A product is personalized if it is irreversibly customized in a way that makes it less appealing to most people other than the buyer. Example: false.",
+                        "type": "boolean"
+                      },
+                      "price_with_tax": {
+                        "description": "Price with tax for one item. Example: 3030.",
+                        "type": "number"
+                      },
+                      "product_id": {
+                        "description": "Id from database. Will not be shown to shopper. Sometimes useful if 'reference' varies too much over time. Example: \\\"6\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "quantity": {
+                        "description": "The number of items ordered by the shopper. Example: 2.",
+                        "type": "number"
+                      },
+                      "reference": {
+                        "description": "A public product id for this item. Example: \\\"12-123-1234\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "restockable": {
+                        "description": "A product is restockable if it can be sold to someone else if returned in good condition.  Foodstuff is generally not restockable. Example: true.",
+                        "type": "boolean"
+                      },
+                      "subscription_period": {
+                        "description": "Subscription period of item in months. Example: 24.",
+                        "type": "number"
+                      },
+                      "subscription_price": {
+                        "description": "Total subscription cost per month (subscription_price_per_item * quantity) Example: 1000.",
+                        "type": "number"
+                      },
+                      "subscription_price_per_item": {
+                        "description": "Subscription cost per month per item. Example: 500.",
+                        "type": "number"
+                      },
+                      "supplier": {
+                        "description": "Name of supplier or provider. Will not be shown to shopper. Useful against fraud. Example: \\\"Mayorista Makro\\\".",
+                        "type": "string"
+                      },
+                      "total_with_tax": {
+                        "description": "Price with tax for the amount in the order. Due to rounding, this might not be exactly quantity × price_with_tax. Example: 6060.",
+                        "type": "number"
+                      },
+                      "tracking_reference": {
+                        "description": "A reference to the tracking in which this item will be handed. Example: \\\"first\\\".",
+                        "type": "string"
+                      },
+                      "type": {
+                        "const": "product",
+                        "type": "string"
+                      },
+                      "url": {
+                        "description": "Product page URL in your shop. Might be shown to shopper. Useful for customer service. Example: \\\"http://shop.example.com/ipod-accesorios/leather-case\\\".",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "downloadable",
+                      "name",
+                      "price_with_tax",
+                      "quantity",
+                      "reference",
+                      "total_with_tax"
+                    ],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "name": {
+                        "description": "A name to describe this item. More specific is better, i.e. prefer 'Correos' to 'Envío'. Example: \\\"SEUR entrega en 24 horas\\\".",
+                        "type": "string"
+                      },
+                      "reference": {
+                        "description": "A unique code that refers to this item. Does not have to exist in the shop catalogue. Example: \\\"seur24\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "total_with_tax": {
+                        "description": "Price with tax for this handling service. Example: 242.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "handling",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name", "reference", "total_with_tax", "type"],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "total_with_tax": {
+                        "description": "Price with tax for the invoice (i1) service. Do not use with product codes other than i1. Example: 295.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "invoice_fee",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["total_with_tax", "type"],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "name": {
+                        "description": "A name to describe this discount. Might be displayed in the payment instructions. Example: \\\"50 % off the full basket!\\\".",
+                        "type": "string"
+                      },
+                      "reference": {
+                        "description": "A unique code that refers to this discount. Can be the discount code. Example: \\\"HALFOFF\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "total_with_tax": {
+                        "description": "Amount that this discount changes the cart value with tax. Should be negative. Example: -750.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "discount",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name", "reference", "total_with_tax", "type"],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "reference": {
+                        "description": "A code that refers to this \\\"other\\\" payment. (An \\\"other\\\" payment means that the shopper \\\" \\\\\\n          \\\"has paid part of the cart using some other means of payment, like cash or credit card.) Example: \\\"CASH\\\". (string or int",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "total_with_tax": {
+                        "description": "Amount that this payment changes the cart value with tax. Should use opposite sign of any item it pays for. Example: -750.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "other_payment",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name", "reference", "total_with_tax", "type"],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "downloadable": {
+                        "description": "True for services that can be fully (or sufficiently) enjoyed without a physical delivery. For instance, a course with only digital material. Example: false.",
+                        "type": "boolean"
+                      },
+                      "ends_in": {
+                        "description": "Maximum time, from the start of the service, for the service to be rendered or ended. Example: \\\"P3M15D\\\".",
+                        "type": "string"
+                      },
+                      "ends_on": {
+                        "description": "Maximum date for the service to be rendered or ended. Example: \\\"2017-06-30\\\".",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "A name to describe this service. Might be displayed in the payment instructions. Example: \\\"Networks Administrator Course\\\".",
+                        "type": "string"
+                      },
+                      "price_with_tax": {
+                        "description": "Price with tax for one item. Example: 3030.",
+                        "type": "number"
+                      },
+                      "quantity": {
+                        "description": "The number of items ordered by the shopper. Example: 1.",
+                        "type": "number"
+                      },
+                      "reference": {
+                        "description": "A public id for this service. Example: \\\"NETWORKS-ADMIN-101\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "rendered": {
+                        "description": "True when the service has been rendered Example: false.",
+                        "type": "boolean"
+                      },
+                      "supplier": {
+                        "description": "Name of supplier or provider. Example: \\\"Acme Formación\\\".",
+                        "type": "string"
+                      },
+                      "total_with_tax": {
+                        "description": "Price with tax for the amount in the order. Due to rounding, this might not be exactly quantity × price_with_tax. Example: 75020.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "service",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "downloadable",
+                      "ends_in",
+                      "ends_on",
+                      "name",
+                      "price_with_tax",
+                      "quantity",
+                      "reference",
+                      "total_with_tax",
+                      "type"
+                    ],
+                    "type": "object",
+                    "additionalProperties": false
+                  },
+                  {
+                    "properties": {
+                      "name": {
+                        "description": "A description to include in the payment instructions. Example: \\\"Subscription fee\\\".",
+                        "type": "string"
+                      },
+                      "price_with_tax": {
+                        "description": "Price with tax for one item. Example: 3030.",
+                        "type": "number"
+                      },
+                      "quantity": {
+                        "description": "The number of items ordered by the shopper. Example: 2.",
+                        "type": "number"
+                      },
+                      "reference": {
+                        "description": "A public product id for this item. Example: \\\"12-123-1234\\\".",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "subscription_period": {
+                        "description": "Subscription period of item in months. Example: 24.",
+                        "type": "number"
+                      },
+                      "subscription_price": {
+                        "description": "Total subscription cost per month (subscription_price_per_item * quantity) Example: 1000.",
+                        "type": "number"
+                      },
+                      "subscription_price_per_item": {
+                        "description": "Subscription cost per month per item. Example: 500.",
+                        "type": "number"
+                      },
+                      "total_with_tax": {
+                        "description": "Price with tax for the amount in the order. Due to rounding, this might not be exactly quantity × price_with_tax. Example: 6060.",
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "subscriber_fee",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name", "total_with_tax", "type"],
+                    "type": "object",
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "order_total_with_tax": {
+              "description": "Total value with tax of the items listed below. Example: 5097.",
+              "type": "number"
+            },
+            "subscription_period": {
+              "description": "Minimum duration of the subscription (in months), from the date of activation of subscription. Example: 24.",
+              "type": "number"
+            },
+            "subscription_total_price": {
+              "description": "Total monthly cost of the subscription of the items listed below. Example: 1000.",
+              "type": "number"
+            },
+            "updated_at": {
+              "description": "When shopper put the last item in the cart. Example: \\\"2013-10-18T12:25:20+01:00\\\".",
+              "type": "string"
+            }
+          },
+          "required": ["currency", "gift", "items", "order_total_with_tax"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "customer": {
+          "description": "Fields describing the customer",
+          "properties": {
+            "company": {
+              "description": "Customer company name.",
+              "type": "string"
+            },
+            "created_at": {
+              "description": "Date when this customer was added to the shop database, in ISO-8601 format. Example: \\\"2013-08-15T21:07:37+01:00\\\".",
+              "type": "string"
+            },
+            "date_of_birth": {
+              "description": "Customer date of birth in ISO-8601 format. Example: \\\"1980-01-20\\\".",
+              "type": "string"
+            },
+            "email": {
+              "description": "Customer email. Example: \\\"nisse@example.com\\\".",
+              "type": "string"
+            },
+            "given_names": {
+              "type": "string"
+            },
+            "ip_number": {
+              "description": "Customer ip number. Example: \\\"12.23.34.45\\\".",
+              "type": "string"
+            },
+            "language_code": {
+              "description": "Customer language code. Example: \\\"es-ES\\\".",
+              "type": "string"
+            },
+            "logged_in": {
+              "description": "Is the customer logged in? Use 'unknown' if your platform cannot check whether the user is logged in or not Example: true.",
+              "enum": [false, true, "unknown"]
+            },
+            "nin": {
+              "description": "Customer's national identity number. For Spanish DNI, please include final letter. Example: \\\"13003009L\\\".",
+              "type": "string"
+            },
+            "nin_control": {
+              "description": "A validation code printed in the physical DNI or NIE. Required for multistore merchants and physical stores. See the FAQs to know more. Example: \\\"15012018F2\\\".",
+              "type": "string"
+            },
+            "previous_orders": {
+              "description": "List of customer's previous orders in this shop.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "description": "Total order amount including tax. Example: 4656.",
+                    "type": "number"
+                  },
+                  "country_code": {
+                    "description": "Previous order's country code. Example: \\\"ES\\\".",
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "description": "Date (and time, if available) when this order was created or delivered, in ISO-8601 format. Example: \\\"2013-06-11T12:27:40+02:00\\\".",
+                    "type": "string"
+                  },
+                  "currency": {
+                    "description": "Currency name for amount. Example: \\\"EUR\\\".",
+                    "type": "string"
+                  },
+                  "payment_method": {
+                    "description": "Mapped payment methods. Use one of CC (for credit cards), PP (for PayPal), TR (for bank wire), COD (for cash on delivery, contrareembolso), SQ (SeQura). For other methods, use O/ plus a name, e.g. 'O/postal_giro' Example: \\\"PP\\\".",
+                    "type": "string"
+                  },
+                  "payment_method_raw": {
+                    "description": "Payment method as reported by the platform. Example: \\\"PayPal\\\".",
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "description": "Previous order's delivery address postal code. Example: \\\"08013\\\".",
+                    "type": "string"
+                  },
+                  "raw_status": {
+                    "description": "The status of the order as reported in the platform. Example: \\\"Shipped\\\".",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "The mapped status value. Use one of 'processing', 'shipped' or 'cancelled' Example: \\\"shipped\\\".",
+                    "type": "string"
+                  }
+                },
+                "required": ["amount", "created_at", "currency"],
+                "type": "object",
+                "additionalProperties": false
+              },
+              "type": "array"
+            },
+            "rating": {
+              "description": "The merchant's rating of this customer. 0 to 100, inclusive, where 0 is \\\"cannot be trusted\\\" and 100 is \\\"very trustworthy\\\". Example: 100.",
+              "type": "number"
+            },
+            "ref": {
+              "description": "Customer reference number in the shop's database. Example: 123.",
+              "oneOf": [{ "type": "string" }, { "type": "number" }]
+            },
+            "surnames": {
+              "description": "Customer surnames. Example: \\\"Barroso Rajoy\\\".",
+              "type": "string"
+            },
+            "title": {
+              "description": "Customer title and/or gender. Use the one of 'mr', 'ms', 'mrs', 'miss' or 'mx' that is closest to the information supplied by the customer. If none of these can be inferred, use the title that the customer entered as-is.  See also 'Note about title' in the docs. Example: \\\"mr\\\".",
+              "type": "string"
+            },
+            "updated_at": {
+              "description": "Date when this customer was updated in the shop database, in ISO-8601 format. Example: \\\"2013-09-27T16:50:25+01:00\\\".",
+              "type": "string"
+            },
+            "user_agent": {
+              "description": "Customer browser. Example: \\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36\\\".",
+              "type": "string"
+            },
+            "vat_number": {
+              "description": "Shopper VAT number. Example: \\\"B12345\\\".",
+              "type": "string"
+            },
+            "vehicle": {
+              "description": "Fields describing the customer's vehicl",
+              "properties": {
+                "brand": {
+                  "description": "Brand from customer's vehicle Example: \\\"Volkswagen\\\".",
+                  "type": "string"
+                },
+                "first_registration_date": {
+                  "description": "First registration date plaque from customer's vehicle Example: \\\"2000-03-25\\\".",
+                  "type": "string"
+                },
+                "frame": {
+                  "description": "Frame identificator from customer's vehicle Example: \\\"VF1RFD00653635032\\\".",
+                  "type": "string"
+                },
+                "model": {
+                  "description": "Model from customer's vehicle Example: \\\"Beetle\\\".",
+                  "type": "string"
+                },
+                "plaque": {
+                  "type": "string"
+                }
+              },
+              "required": ["plaque"],
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "email",
+            "given_names",
+            "ip_number",
+            "language_code",
+            "logged_in",
+            "surnames",
+            "user_agent"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "delivery_address": {
+          "description": "Fields describing the delivery address",
+          "properties": {
+            "address_line_1": {
+              "description": "Delivery address line 1. Example: \\\"C/ Aragó 383\\\".",
+              "type": "string"
+            },
+            "address_line_2": {
+              "description": "Delivery address line 2. Example: \\\"5º\\\".",
+              "type": "string"
+            },
+            "city": {
+              "description": "Delivery address city. Example: \\\"Barcelona\\\".",
+              "type": "string"
+            },
+            "company": {
+              "description": "Shopper company name.",
+              "type": "string"
+            },
+            "country_code": {
+              "description": "Delivery address country code. Example: \\\"ES\\\".",
+              "type": "string"
+            },
+            "extra": {
+              "description": "Extra handling information that the shopper adds to the order. Example: \\\"I'm home between 9 and 12.\\\".",
+              "type": "string"
+            },
+            "given_names": {
+              "type": "string"
+            },
+            "mobile_phone": {
+              "description": "Shopper mobile phone. Only use this field if the shopper indicated that this number is a mobile phone. Example: \\\"615 615 615\\\".",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Shopper phone. Can be a mobile phone. Example: \\\"933 033 033\\\".",
+              "type": "string"
+            },
+            "postal_code": {
+              "description": "Delivery address address postal code. Example: \\\"08013\\\".",
+              "type": "string"
+            },
+            "state": {
+              "description": "Shopper region or state. Example: \\\"Barcelona\\\".",
+              "type": "string"
+            },
+            "surnames": {
+              "description": "Shopper's last names for delivery. Example: \\\"Barroso Rajoy\\\".",
+              "type": "string"
+            },
+            "vat_number": {
+              "description": "Shopper VAT number. Example: \\\"B12345\\\".",
+              "type": "string"
+            }
+          },
+          "required": [
+            "address_line_1",
+            "address_line_2",
+            "city",
+            "company",
+            "country_code",
+            "given_names",
+            "postal_code",
+            "surnames"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "delivery_method": {
+          "description": "Delivery method used on the purchase",
+          "properties": {
+            "days": {
+              "description": "Days it takes to deliver the goods. Example: \\\"¡Entrega día siguiente!\\\".",
+              "type": "string"
+            },
+            "home_delivery": {
+              "description": "If goods are delivered to the buyer's home or office and not to a pick-up place. Example: true.",
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "provider": {
+              "description": "Company or agent that performs the delivery. Example: \\\"Correos\\\".",
+              "type": "string"
+            }
+          },
+          "required": ["name"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "first_charge_date": {
+          "description": "When the first payment for the order should be charged. Example: \\\"2001-01-01\\\".",
+          "type": "string"
+        },
+        "gui": {
+          "description": "Fields describing the medium for which the response will be generated",
+          "properties": {
+            "layout": {
+              "type": "string"
+            }
+          },
+          "required": ["layout"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "instore": {
+          "description": "Fields describing the In-store integration",
+          "properties": {
+            "code": {
+              "type": "string"
+            }
+          },
+          "required": ["code"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "invoice_address": {
+          "description": "Fields describing the invoice address",
+          "properties": {
+            "address_line_1": {
+              "description": "Invoice address line 1.",
+              "type": "string"
+            },
+            "address_line_2": {
+              "description": "Invoice address line 2.",
+              "type": "string"
+            },
+            "city": {
+              "description": "Invoice address city.",
+              "type": "string"
+            },
+            "company": {
+              "description": "Shopper company name.",
+              "type": "string"
+            },
+            "country_code": {
+              "description": "Invoice address country code. Example: \\\"ES\\\".",
+              "type": "string"
+            },
+            "extra": {
+              "description": "Extra handling information that the shopper adds to the order. Example: \\\"I'm home between 9 and 12.\\\".",
+              "type": "string"
+            },
+            "given_names": {
+              "type": "string"
+            },
+            "mobile_phone": {
+              "description": "Shopper mobile phone. Only use this field if the shopper indicated that this number is a mobile phone. Example: \\\"615 615 615\\\".",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Shopper phone. Can be a mobile phone. Example: \\\"933 033 033\\\".",
+              "type": "string"
+            },
+            "postal_code": {
+              "description": "Invoice address address postal code.",
+              "type": "string"
+            },
+            "state": {
+              "description": "Shopper region or state. Example: \\\"Tarragona\\\".",
+              "type": "string"
+            },
+            "surnames": {
+              "description": "Shopper's last names for invoice. Example: \\\"Barroso Rajoy\\\".",
+              "type": "string"
+            },
+            "vat_number": {
+              "description": "Shopper VAT number. Example: \\\"B12345\\\".",
+              "type": "string"
+            }
+          },
+          "required": [
+            "address_line_1",
+            "address_line_2",
+            "city",
+            "company",
+            "country_code",
+            "given_names",
+            "postal_code",
+            "surnames"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "merchant": {
+          "description": "Fields describing the merchant and the store integration",
+          "properties": {
+            "abort_url": {
+              "description": "URL for a page where the shopper can pick another payment method. Used when part-payment fails to get credit card details. Example: \\\"https://my.shop.tld/checkout/payment\\\".",
+              "type": "string"
+            },
+            "approved_callback": {
+              "description": "Name of Javascript function to call when SeQura approves the order and checkout should move to next step.  Can be used with or without IPN. *Cannot* be used with part-payment. Example: \\\"shop_callback_sequra_approved\\\".",
+              "type": "string"
+            },
+            "approved_url": {
+              "description": "When SeQura approves the order, the shopper's browser will make a POST to this URL without arguments. *Not used* when the integration is using IPN. *Not used* when approved_callback is present. Example: \\\"https://my.shop.tld/checkout/approved\\\".",
+              "type": "string"
+            },
+            "edit_url": {
+              "description": "URL for a page where the shopper can edit their name, address, etc. If provided, a link to this URL will be displayed just before SeQura's identification form.",
+              "type": "string"
+            },
+            "events_webhook": {
+              "description": "Fields describing how the merchant wants to receive webhook events",
+              "properties": {
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "description": "Optional name/value pairs that will be included in the webhook event POST. Example: {\\\"internal_identifier\\\":\\\"1234\\\", \\\"signature\\\":\\\"K6hDNSwfcJjF+suAJqXAjA==\\\"}."
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": ["url"],
+              "type": "object",
+              "additionalProperties": false
+            },
+            "garage_chain": {
+              "description": "Chain indentifier for merchant Example: \\\"Reparvehicle\\\".",
+              "type": "string"
+            },
+            "id": {
+              "oneOf": [{ "type": "string" }, { "type": "number" }]
+            },
+            "notification_parameters": {
+              "type": "object",
+              "additionalProperties": true,
+              "description": "Optional name/value pairs that will be included in the IPN POST. Example: {\\\"cart\\\":\\\"1234\\\", \\\"signature\\\":\\\"K6hDNSwfcJjF+suAJqXAjA==\\\"}."
+            },
+            "notify_url": {
+              "description": "SeQura will make an IPN POST to this URL when the order is approved. The shop should use this signal to confirm the order. Example: \\\"https://my.shop.tld/checkout/sequra-ipn/8765432\\\".",
+              "type": "string"
+            },
+            "operator_ref": {
+              "type": "string"
+            },
+            "options": {
+              "description": "Features activated by this merchant in this request",
+              "properties": {
+                "addresses_may_be_missing": {
+                  "description": "True if the merchant cannot send both addresses (delivery_address and invoice_address) during checkout. SeQura strongly suggests that this option is only used when the payload does not include any of the addresses. Defaults to false. Example: false.",
+                  "type": "boolean"
+                },
+                "has_jquery": {
+                  "type": "boolean"
+                },
+                "immutable_customer_data": {
+                  "description": "True if the merchant wishes to lock the provided shopper's personal data. Shoppers will not be able to edit this information if provided by the merchant. Defaults to false. Example: false.",
+                  "type": "boolean"
+                },
+                "uses_shipped_cart": {
+                  "description": "True if the merchant wishes to use the API option that explicitly communicates if some items will be shipped immediately after confirmation (see page Shipping items on checkout in the sidebar).Defaults to false. Example: false.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object",
+              "additionalProperties": false
+            },
+            "partpayment_details_getter": {
+              "description": "Name of Javascript function to call to get the shopper's part-payment details. Example: \\\"partpaymentWidgetDetails\\\".",
+              "type": "string"
+            },
+            "rejected_callback": {
+              "description": "Name of Javascript function to call if the shopper is rejected. The function is expected to display the other payment methods. Example: \\\"showHiddenMethods\\\".",
+              "type": "string"
+            },
+            "return_url": {
+              "description": "The shopper will be redirected to this URL once the shop has confirmed the order after IPN notification. This field is recommended when using IPN. Example: \\\"https://my.shop.tld/checkout/confirmed\\\".",
+              "type": "string"
+            },
+            "store_ref": {
+              "description": "Permanent identifier for the store where the checkout takes place. Example: \\\"maquinista\\\". (string)** Mandatory for multistore merchants, optional for physical stores, not permitted for others",
+              "type": "string"
+            },
+            "tag_ref": {
+              "type": "string"
+            },
+            "timeout": {
+              "description": "Timeout configuration. If this section is present, the identification form will display a count-down (MM:SS) to this time. When it reaches 0:00, the form will be disabled",
+              "properties": {
+                "timeout_at": {
+                  "type": "string"
+                },
+                "timeout_url": {
+                  "description": "If the identification form is still visible at the timeout time the shopper will be redirected to this URL after a short delay during which the form displays an error message. Example: \\\"https://my.shop.tld/checkout/sequra-timeout/8765432\\\".",
+                  "type": "string"
+                }
+              },
+              "required": ["timeout_at", "timeout_url"],
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "required": ["id"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "merchant_reference": {
+          "description": "Order id(s) used by the merchan",
+          "properties": {
+            "order_ref_1": {
+              "oneOf": [{ "type": "string" }, { "type": "number" }]
+            },
+            "order_ref_2": {
+              "description": "Merchant reference 2. Example: \\\"0080-1234-4343-5353\\\".",
+              "oneOf": [{ "type": "string" }, { "type": "number" }]
+            }
+          },
+          "required": ["order_ref_1"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "platform": {
+          "description": "Fields describing the store platform",
+          "properties": {
+            "db_name": {
+              "description": "DB used. Example: \\\"mysql\\\".",
+              "type": "string"
+            },
+            "db_version": {
+              "description": "Version of the DB. Example: \\\"1.2.3\\\".",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "php_version": {
+              "description": "PHP interpreter version. Example: \\\"5.4.1.7\\\".",
+              "type": "string"
+            },
+            "plugin_version": {
+              "description": "Version of the plugin or platform module.  If you don't use explicit versioning, use a release date instead. Example: \\\"1.0.2\\\".",
+              "type": "string"
+            },
+            "uname": {
+              "description": "uname of the shop server. In PHP, use php_uname(). Example: \\\"Darwin roatan.local 13.0.0 Darwin Kernel Version 13.0... x86_64\\\".",
+              "type": "string"
+            },
+            "version": {
+              "description": "Version of the platform.  If you don't use explicit versioning, use a release date instead. Example: \\\"1.1\\\".",
+              "type": "string"
+            }
+          },
+          "required": ["db_name", "db_version", "name", "uname", "version"],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "state": {
+          "description": "String containing state of the order. Allowed values are null (indicating no change) and 'confirmed'.",
+          "type": "string"
+        },
+        "trackings": {
+          "description": "A list of trackings for the order",
+          "items": {
+            "anyOf": [
+              {
+                "properties": {
+                  "address_line_1": {
+                    "description": "Address line 1 for the store. Example: \\\"1600 Pennsylvania Avenue\\\".",
+                    "type": "string"
+                  },
+                  "address_line_2": {
+                    "description": "Address line 2 for the store. Example: \\\"5º\\\".",
+                    "type": "string"
+                  },
+                  "available_at": {
+                    "description": "When this delivery was available in the store. Example: \\\"2014-02-05T13:21:22+01:00\\\".",
+                    "type": "string"
+                  },
+                  "city": {
+                    "description": "City. Example: \\\"Barcelona\\\".",
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "description": "Country code. Example: \\\"ES\\\".",
+                    "type": "string"
+                  },
+                  "delivered_at": {
+                    "description": "When this delivery was handed. When set, the delivey is considered to be handed. Example: \\\"2014-02-05T19:21:22+01:00\\\".",
+                    "type": "string"
+                  },
+                  "operator_ref": {
+                    "description": "Permanent identifier for the operator that handed the delivery. Example: \\\"123-009\\\".",
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "description": "Postal code. Example: \\\"08013\\\".",
+                    "type": "string"
+                  },
+                  "reference": {
+                    "description": "Internal tracking reference. Example: \\\"first\\\".",
+                    "type": "string"
+                  },
+                  "state": {
+                    "description": "State or region. Example: \\\"Barcelona\\\".",
+                    "type": "string"
+                  },
+                  "store_ref": {
+                    "description": "Permanent identifier for the store that handled this delivery. Example: \\\"maquinista\\\".",
+                    "type": "string"
+                  },
+                  "tracking_number": {
+                    "description": "Tracking number. Example: \\\"AB331\\\".",
+                    "type": "string"
+                  },
+                  "type": {
+                    "const": "pickup_store",
+                    "type": "string"
+                  }
+                },
+                "required": ["reference", "type"],
+                "type": "object",
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "address_line_1": {
+                    "description": "Address line 1 for the pickup point. Example: \\\"1600 Pennsylvania Avenue\\\".",
+                    "type": "string"
+                  },
+                  "address_line_2": {
+                    "description": "Address line 2 for the pickup point. Example: \\\"5º\\\".",
+                    "type": "string"
+                  },
+                  "available_at": {
+                    "description": "When this delivery was available in the store. Example: \\\"2014-02-05T13:21:22+01:00\\\".",
+                    "type": "string"
+                  },
+                  "city": {
+                    "description": "City. Example: \\\"Barcelona\\\".",
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "description": "Country code. Example: \\\"ES\\\".",
+                    "type": "string"
+                  },
+                  "delivered_at": {
+                    "description": "When this delivery was handed. When set, the delivey is considered to be handed. Example: \\\"2014-02-05T19:21:22+01:00\\\".",
+                    "type": "string"
+                  },
+                  "operator_ref": {
+                    "description": "Permanent identifier for the operator that handed the delivery. Example: \\\"123-009\\\".",
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "description": "Postal code. Example: \\\"08013\\\".",
+                    "type": "string"
+                  },
+                  "reference": {
+                    "description": "Tracking reference. Example: \\\"second\\\".",
+                    "type": "string"
+                  },
+                  "state": {
+                    "description": "State or region. Example: \\\"Barcelona\\\".",
+                    "type": "string"
+                  },
+                  "store_ref": {
+                    "description": "Permanent identifier for the store that handled this delivery. Example: \\\"maquinista\\\".",
+                    "type": "string"
+                  },
+                  "tracking_number": {
+                    "description": "Tracking number. Example: \\\"AB331\\\".",
+                    "type": "string"
+                  },
+                  "type": {
+                    "const": "pickup_point",
+                    "type": "string"
+                  }
+                },
+                "required": ["reference", "type"],
+                "type": "object",
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "carrier": {
+                    "description": "The name of the company that handled this delivery. Example: \\\"SEUR\\\".",
+                    "type": "string"
+                  },
+                  "delivered_at": {
+                    "description": "When this delivery was handed. When set, the delivey is considered to be handed. Example: \\\"2014-02-05T19:21:22+01:00\\\".",
+                    "type": "string"
+                  },
+                  "reference": {
+                    "description": "Internal tracking reference. Example: \\\"third\\\".",
+                    "type": "string"
+                  },
+                  "tracking_number": {
+                    "description": "Tracking number. Example: \\\"TX123\\\".",
+                    "type": "string"
+                  },
+                  "tracking_url": {
+                    "description": "Tracking URL. Example: \\\"https://logistics.es/TX123\\\".",
+                    "type": "string"
+                  },
+                  "type": {
+                    "const": "postal",
+                    "type": "string"
+                  }
+                },
+                "required": ["carrier", "reference", "type"],
+                "type": "object",
+                "additionalProperties": false
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "required": ["cart", "customer", "delivery_method", "gui", "merchant", "platform", "state"],
+      "type": "object",
+      "additionalProperties": false
+    }
+  },
+  "required": ["order"]
+}

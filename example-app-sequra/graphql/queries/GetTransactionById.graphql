@@ -1,0 +1,26 @@
+query GetTransactionById($transactionId: ID!) {
+  shop {
+    version
+  }
+  transaction(id: $transactionId) {
+    id
+
+    events {
+      id
+      pspReference
+      type
+      amount {
+        ...Money
+      }
+    }
+
+    order {
+      __typename
+      ...OrderSourceObject
+    }
+    checkout {
+      __typename
+      ...CheckoutSourceObject
+    }
+  }
+}

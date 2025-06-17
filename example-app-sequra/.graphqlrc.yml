@@ -1,0 +1,49 @@
+schema: graphql/schema.graphql
+documents: [graphql/**/*.graphql, src/migrations/**/*.graphql, src/**/*.ts, src/**/*.tsx]
+extensions:
+  codegen:
+    overwrite: true
+    generates:
+      generated/graphql.ts:
+        hooks:
+          afterAllFileWrite:
+            - prettier --write
+        config:
+          immutableTypes: true
+          strictScalars: true
+          defaultScalarType: "unknown"
+          useTypeImports: true
+          dedupeFragments: true
+          skipTypename: true
+          scalars:
+            _Any: "unknown"
+            Date: "string"
+            DateTime: "string"
+            Day: "number"
+            Decimal: "number"
+            Minute: "number"
+            GenericScalar: "JSONValue"
+            JSON: "JSONValue"
+            JSONString: "string"
+            Metadata: "Record<string, string>"
+            PositiveDecimal: "number"
+            Upload: "unknown"
+            UUID: "string"
+            WeightScalar: "number"
+        plugins:
+          - add:
+              content: |
+                /* c8 ignore start */
+                import type { JSONValue } from '@/types';
+          - typescript
+          - typescript-operations:
+              skipTypeNameForRoot: true
+              exportFragmentSpreadSubTypes: true
+          - urql-introspection
+          - typescript-urql:
+              documentVariablePrefix: "Untyped"
+              fragmentVariablePrefix: "Untyped"
+          - typed-document-node
+      generated/schema.graphql:
+        plugins:
+          - schema-ast

@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "definitions.json",
+  "definitions": {
+    "PositiveDecimal": { "type": "number", "minimum": 0 },
+    "DateTime": { "type": "string", "format": "date-time" },
+    "JSON": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {},
+      "tsType": "JSONObject"
+    },
+    "TransactionActions": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "type": "string", "const": "CHARGE" },
+          { "type": "string", "const": "REFUND" },
+          { "type": "string", "const": "CANCEL" }
+        ]
+      }
+    },
+    "TransactionSessionResult": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZATION_SUCCESS",
+        "AUTHORIZATION_FAILURE",
+        "AUTHORIZATION_REQUEST",
+        "AUTHORIZATION_ACTION_REQUIRED",
+        "CHARGE_SUCCESS",
+        "CHARGE_FAILURE",
+        "CHARGE_REQUEST",
+        "CHARGE_ACTION_REQUIRED"
+      ]
+    },
+    "TransactionEventType": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZATION_SUCCESS",
+        "AUTHORIZATION_FAILURE",
+        "AUTHORIZATION_ADJUSTMENT",
+        "AUTHORIZATION_REQUEST",
+        "CHARGE_SUCCESS",
+        "CHARGE_FAILURE",
+        "CHARGE_BACK",
+        "CHARGE_REQUEST",
+        "REFUND_SUCCESS",
+        "REFUND_FAILURE",
+        "REFUND_REVERSE",
+        "REFUND_REQUEST",
+        "CANCEL_SUCCESS",
+        "CANCEL_FAILURE",
+        "CANCEL_REQUEST"
+      ]
+    },
+    "TransactionCancelationRequestedAllowedResult": {
+      "type": "string",
+      "enum": ["CANCEL_SUCCESS", "CANCEL_FAILURE"]
+    },
+    "TransactionChargeRequestedAllowedResult": {
+      "type": "string",
+      "enum": ["CHARGE_SUCCESS", "CHARGE_FAILURE"]
+    },
+    "TransactionRefundRequestedAllowedResult": {
+      "type": "string",
+      "enum": ["REFUND_SUCCESS", "REFUND_FAILURE"]
+    },
+    "SyncWebhookAppError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "details": { "$ref": "definitions.json#/definitions/JSON" }
+      }
+    },
+    "SyncWebhookAppErrors": {
+      "type": "array",
+      "items": {
+        "$ref": "definitions.json#/definitions/SyncWebhookAppError"
+      }
+    }
+  }
+}
