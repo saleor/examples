@@ -1,0 +1,15 @@
+mutation CheckoutDeliveryMethodUpdate($checkoutId: ID!, $shippingMethodId: ID!) {
+	checkoutDeliveryMethodUpdate(id: $checkoutId, deliveryMethodId: $shippingMethodId) {
+		checkout {
+			id
+			availablePaymentGateways {
+				id
+				name
+			}
+		}
+		errors {
+			field
+			message
+		}
+	}
+}

@@ -1,0 +1,22 @@
+mutation PaymentGatewayInitialize($checkoutId: ID!, $data: JSON!) {
+	paymentGatewayInitialize(
+		id: $checkoutId
+		amount: 0
+		paymentGateways: [{ id: "app.saleor.sequra", data: $data }]
+	) {
+		gatewayConfigs {
+			id
+			data
+			errors {
+				field
+				message
+				code
+			}
+		}
+		errors {
+			field
+			message
+			code
+		}
+	}
+}

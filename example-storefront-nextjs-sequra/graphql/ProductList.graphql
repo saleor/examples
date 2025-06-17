@@ -1,0 +1,32 @@
+query ProductList {
+	products(first: 100, channel: "eur", where: { isAvailable: true, stockAvailability: IN_STOCK }) {
+		edges {
+			node {
+				id
+				name
+				thumbnail(size: 2048) {
+					url
+					alt
+				}
+				category {
+					name
+				}
+				productType {
+					isShippingRequired
+				}
+				defaultVariant {
+					id
+					name
+					pricing {
+						price {
+							gross {
+								amount
+								currency
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
