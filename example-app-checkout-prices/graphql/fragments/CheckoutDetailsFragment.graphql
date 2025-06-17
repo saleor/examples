@@ -1,0 +1,31 @@
+
+fragment CheckoutDetails on Checkout {
+    id
+    token
+    lines{
+        id
+        variant{
+            ...VariantDetails
+        }
+        quantity
+        unitPrice{
+            gross{
+                currency
+                amount
+            }
+
+        }
+        totalPrice{
+            gross{
+                currency
+                amount
+            }
+        }
+    }
+    subtotalPrice{
+        gross{
+            currency
+            amount
+        }
+    }
+}
