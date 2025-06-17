@@ -1,0 +1,25 @@
+
+fragment VariantDetails on ProductVariant {
+    id
+    name
+    product{
+        name
+    }
+    pricing{
+        onSale
+        discount{
+            gross{
+                currency
+                amount
+            }
+        }
+        price{
+            gross{
+                amount
+                currency
+            }
+        }
+    }
+    quantityPricing: metafield(key: "quantityPricing")
+
+}

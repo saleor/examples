@@ -1,0 +1,7 @@
+mutation SetQuantityPricing($id: ID!, $pricing: String!){
+    updateMetadata(id: $id, input: {key: "quantityPricing", value: $pricing}){
+        errors{
+            message
+        }
+    }
+}

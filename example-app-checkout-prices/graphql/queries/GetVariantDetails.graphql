@@ -1,0 +1,5 @@
+query GetVariantDetails($channel:String!, $id: ID!){
+  productVariant(channel:$channel, id: $id){
+    ...VariantDetails
+  }
+}

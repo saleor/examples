@@ -1,0 +1,5 @@
+query GetCheckoutDetails($id: ID!){
+    checkout(id: $id){
+      ...CheckoutDetails
+    }
+}
