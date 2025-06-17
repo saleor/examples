@@ -1,13 +1,10 @@
 # Saleor App Example: TaxJar integration
 
-> [!TIP]
-> Questions or issues? Check our [discord](https://discord.gg/H52JTZAtSH) channel for help.
-
 Note: This repository is an example, which means:
 
-* It's not production ready
-* It's not actively maintained by Saleor
-* It should be used as a learning resource
+- It's not production ready
+- It's not actively maintained by Saleor
+- It should be used as a learning resource
 
 ### The stack
 
@@ -22,7 +19,6 @@ If you want to develop single tenant application - use already configured `FileA
 If you need to support multiple tenants application or you want to deploy your application - use `UpstashAPL`.
 
 To read more about storing auth data, read the [APL documentation](https://github.com/saleor/saleor-app-sdk/blob/main/docs/apl.md)
-
 
 ### Generated schema and typings
 

@@ -1,8 +1,5 @@
 # Saleor App Example: CRM
 
-> [!TIP]
-> Questions or issues? Check our [discord](https://discord.gg/H52JTZAtSH) channel for help.
-
 Note: This repository is an example, which means:
 
 * It's not production ready
@@ -35,4 +32,3 @@ Commands `build` and `dev` would generate schema and typed functions using Saleo
 [Apps guide](https://docs.saleor.io/docs/3.x/developer/extending/apps/key-concepts)
 
 [Configuring apps in dashboard](https://docs.saleor.io/docs/3.x/dashboard/apps)
-

@@ -1,14 +1,9 @@
 # Example: Auth in Next.js using OpenID Connect and Apollo Client
 
-> [!TIP]
-> Questions or issues? Check our [discord](https://discord.gg/H52JTZAtSH) channel for help.
-
-
 ### Prerequisites
 
 - [PNPM](https://pnpm.io/) v9
 - Saleor instance with configured OIDC provider (see [docs](https://docs.saleor.io/api-usage/authentication#oidc-single-sign-on-sso-flow) on how to configure it)
-
 
 ## Getting Started
 
