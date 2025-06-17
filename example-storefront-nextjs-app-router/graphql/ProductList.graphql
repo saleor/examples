@@ -1,0 +1,27 @@
+query ProductList($channel: String!, $first: Int!) {
+	products(first: $first, channel: $channel) {
+		edges {
+			node {
+				id
+				name
+				thumbnail(size: 2048) {
+					url
+					alt
+				}
+				category {
+					name
+				}
+				pricing {
+					priceRange {
+						start {
+							gross {
+								amount
+								currency
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
