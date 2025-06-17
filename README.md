@@ -27,3 +27,10 @@
   <span> | </span>
   <a href="https://saleor.io/discord">Discord</a>
 </div>
+
+
+## Structure
+
+* `example-auth-*` - examples that show how to implement storefront login with Saleor
+* `example-storefront-*` - examples that show how to implement storefront with Saleor
+* `example-app-*` - examples that show how to implement Saleor App

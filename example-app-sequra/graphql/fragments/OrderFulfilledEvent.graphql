@@ -1,0 +1,13 @@
+fragment OrderFulfilledEvent on OrderFulfilled {
+  __typename
+  version
+  issuedAt
+  version
+  order {
+    __typename
+    ...OrderSourceObject
+  }
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+}

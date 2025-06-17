@@ -1,0 +1,32 @@
+fragment TransactionInitializeSessionEvent on TransactionInitializeSession {
+  __typename
+  version
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  data
+  merchantReference
+  customerIpAddress
+  action {
+    amount
+    currency
+    actionType
+  }
+  issuingPrincipal {
+    ... on Node {
+      id
+    }
+  }
+  transaction {
+    id
+  }
+  sourceObject {
+    __typename
+    ... on Checkout {
+      ...CheckoutSourceObject
+    }
+    ... on Order {
+      ...OrderSourceObject
+    }
+  }
+}

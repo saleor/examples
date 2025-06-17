@@ -1,0 +1,225 @@
+{
+  "order": {
+    "state": "",
+    "merchant": {
+      "id": "s1",
+      "notify_url": "https://my.shop.tld/checkout/sequra-ipn/8765432",
+      "notification_parameters": {
+        "cart": "1234",
+        "signature": "K6hDNSwfcJjF+suAJqXAjA=="
+      },
+      "return_url": "https://my.shop.tld/checkout/confirmed",
+      "approved_callback": "shop_callback_sequra_approved",
+      "edit_url": "",
+      "abort_url": "https://my.shop.tld/checkout/payment",
+      "rejected_callback": "showHiddenMethods",
+      "partpayment_details_getter": "partpaymentWidgetDetails",
+      "approved_url": "https://my.shop.tld/checkout/approved",
+      "options": {
+        "has_jquery": true
+      },
+      "events_webhook": {
+        "url": "https://my.shop.tld/checkout/sequra-events/8765432",
+        "parameters": {
+          "internal_identifier": "1234",
+          "signature": "K6hDNSwfcJjF+suAJqXAjA=="
+        }
+      },
+      "timeout": {
+        "timeout_at": "2017-06-30T13:50:00+02:00",
+        "timeout_url": "https://my.shop.tld/checkout/sequra-timeout/8765432"
+      }
+    },
+    "merchant_reference": {
+      "order_ref_1": "ZXCV1234",
+      "order_ref_2": "0080-1234-4343-5353"
+    },
+    "cart": {
+      "currency": "EUR",
+      "gift": false,
+      "order_total_with_tax": 11157,
+      "cart_ref": "123",
+      "subscription_period": 24,
+      "subscription_total_price": 1000,
+      "created_at": "2013-10-18T12:25:20+01:00",
+      "updated_at": "2013-10-18T12:25:20+01:00",
+      "items": [
+        {
+          "reference": "12-123-1234",
+          "name": "Leather Case (iPod nano) - Negro / Chocolate",
+          "price_with_tax": 3030,
+          "quantity": 2,
+          "subscription_period": 24,
+          "subscription_price_per_item": 500,
+          "subscription_price": 1000,
+          "total_with_tax": 6060,
+          "downloadable": false,
+          "perishable": false,
+          "personalized": false,
+          "restockable": true,
+          "category": "ipod-accesorios",
+          "description": "Este estuche de cuero de última moda ...",
+          "manufacturer": "Apple",
+          "supplier": "Mayorista Makro",
+          "product_id": "6",
+          "url": "http://shop.example.com/ipod-accesorios/leather-case",
+          "tracking_reference": "first"
+        },
+        {
+          "type": "handling",
+          "reference": "seur24",
+          "name": "SEUR entrega en 24 horas",
+          "total_with_tax": 242
+        },
+        {
+          "type": "invoice_fee",
+          "total_with_tax": 295
+        },
+        {
+          "type": "discount",
+          "reference": "HALFOFF",
+          "name": "50 % off the full basket!",
+          "total_with_tax": -750
+        },
+        {
+          "type": "other_payment",
+          "reference": "CASH",
+          "name": "Paid in cash",
+          "total_with_tax": -750
+        },
+        {
+          "type": "subscriber_fee",
+          "reference": "12-123-1234",
+          "name": "Subscription fee",
+          "price_with_tax": 3030,
+          "quantity": 2,
+          "subscription_period": 24,
+          "subscription_price_per_item": 500,
+          "subscription_price": 1000,
+          "total_with_tax": 6060
+        }
+      ]
+    },
+    "trackings": [
+      {
+        "type": "pickup_store",
+        "reference": "first",
+        "operator_ref": "123-009",
+        "store_ref": "maquinista",
+        "tracking_number": "AB331",
+        "available_at": "2014-02-05T13:21:22+01:00",
+        "delivered_at": "2014-02-05T19:21:22+01:00",
+        "address_line_1": "1600 Pennsylvania Avenue",
+        "address_line_2": "5º",
+        "postal_code": "08013",
+        "city": "Barcelona",
+        "state": "Barcelona",
+        "country_code": "ES"
+      },
+      {
+        "type": "pickup_point",
+        "reference": "second",
+        "operator_ref": "123-009",
+        "store_ref": "maquinista",
+        "tracking_number": "AB331",
+        "available_at": "2014-02-05T13:21:22+01:00",
+        "delivered_at": "2014-02-05T19:21:22+01:00",
+        "address_line_1": "1600 Pennsylvania Avenue",
+        "address_line_2": "5º",
+        "postal_code": "08013",
+        "city": "Barcelona",
+        "state": "Barcelona",
+        "country_code": "ES"
+      },
+      {
+        "type": "postal",
+        "reference": "third",
+        "carrier": "SEUR",
+        "tracking_number": "TX123",
+        "tracking_url": "https://logistics.es/TX123",
+        "delivered_at": "2014-02-05T19:21:22+01:00"
+      }
+    ],
+    "delivery_method": {
+      "name": "SEUR24",
+      "days": "¡Entrega día siguiente!",
+      "provider": "Correos",
+      "home_delivery": true
+    },
+    "delivery_address": {
+      "given_names": "Maria José",
+      "surnames": "Barroso Rajoy",
+      "company": "",
+      "address_line_1": "C/ Aragó 383",
+      "address_line_2": "5º",
+      "postal_code": "08013",
+      "city": "Barcelona",
+      "country_code": "ES",
+      "phone": "933 033 033",
+      "mobile_phone": "615 615 615",
+      "state": "Barcelona",
+      "extra": "I'm home between 9 and 12.",
+      "vat_number": "B12345"
+    },
+    "invoice_address": {
+      "given_names": "Maria José",
+      "surnames": "Barroso Rajoy",
+      "company": "",
+      "address_line_1": "",
+      "address_line_2": "",
+      "postal_code": "",
+      "city": "",
+      "country_code": "ES",
+      "phone": "933 033 033",
+      "mobile_phone": "615 615 615",
+      "state": "Tarragona",
+      "extra": "I'm home between 9 and 12.",
+      "vat_number": "B12345"
+    },
+    "customer": {
+      "given_names": "Maria José",
+      "surnames": "Barroso Rajoy",
+      "title": "mr",
+      "email": "nisse@example.com",
+      "logged_in": true,
+      "language_code": "es-ES",
+      "ip_number": "12.23.34.45",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36",
+      "ref": 123,
+      "date_of_birth": "1980-01-20",
+      "nin": "13003009L",
+      "company": "",
+      "vat_number": "B12345",
+      "created_at": "2013-08-15T21:07:37+01:00",
+      "updated_at": "2013-09-27T16:50:25+01:00",
+      "rating": 100,
+      "nin_control": "15012018F2",
+      "previous_orders": [
+        {
+          "created_at": "2013-06-11T12:27:40+02:00",
+          "amount": 4656,
+          "currency": "EUR",
+          "raw_status": "Shipped",
+          "status": "shipped",
+          "payment_method_raw": "PayPal",
+          "payment_method": "PP",
+          "postal_code": "08013",
+          "country_code": "ES"
+        }
+      ]
+    },
+    "gui": {
+      "layout": "desktop"
+    },
+    "platform": {
+      "name": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "version": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "plugin_version": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "uname": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "db_name": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "db_version": "REPLACE WITH CORRECT VALUE BEFORE QA",
+      "php_version": "REPLACE WITH CORRECT VALUE BEFORE QA"
+    },
+    "first_charge_date": "2001-01-01"
+  }
+}

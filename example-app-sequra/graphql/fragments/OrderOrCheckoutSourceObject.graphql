@@ -1,0 +1,137 @@
+fragment OrderSourceObject on Order {
+  id
+  createdAt: created
+  updatedAt
+  user {
+    ...UserWithEmail
+  }
+  languageCodeEnum
+  checkoutId
+  userEmail
+  channel {
+    id
+    slug
+  }
+  billingAddress {
+    ...TransactionInitializeSessionAddress
+  }
+  shippingAddress {
+    ...TransactionInitializeSessionAddress
+  }
+  total {
+    gross {
+      ...Money
+    }
+  }
+  channel {
+    id
+    slug
+  }
+  shippingPrice {
+    gross {
+      ...Money
+    }
+    net {
+      ...Money
+    }
+    tax {
+      ...Money
+    }
+  }
+  deliveryMethod {
+    __typename
+    ... on ShippingMethod {
+      id
+      name
+    }
+  }
+  lines {
+    ...OrderLine
+  }
+}
+
+fragment CheckoutSourceObject on Checkout {
+  id
+  createdAt: created
+  updatedAt
+  languageCode
+  user {
+    ...UserWithEmail
+  }
+  channel {
+    id
+    slug
+  }
+  userEmail: email
+  billingAddress {
+    ...TransactionInitializeSessionAddress
+  }
+  shippingAddress {
+    ...TransactionInitializeSessionAddress
+  }
+  total: totalPrice {
+    gross {
+      ...Money
+    }
+  }
+  shippingPrice {
+    gross {
+      ...Money
+    }
+    net {
+      ...Money
+    }
+    tax {
+      ...Money
+    }
+  }
+  deliveryMethod {
+    __typename
+    ... on ShippingMethod {
+      id
+      name
+    }
+  }
+  lines {
+    __typename
+    id
+    quantity
+    requiresShipping
+    unitPrice {
+      gross {
+        ...Money
+      }
+      net {
+        ...Money
+      }
+      tax {
+        ...Money
+      }
+    }
+    totalPrice {
+      gross {
+        ...Money
+      }
+      net {
+        ...Money
+      }
+      tax {
+        ...Money
+      }
+    }
+    checkoutVariant: variant {
+      id
+      name
+      sku
+      product {
+        name
+        thumbnail {
+          url
+        }
+        category {
+          name
+        }
+      }
+    }
+  }
+}
