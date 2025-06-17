@@ -1,0 +1,16 @@
+mutation transactionProcess($transactionId: ID!, $data: JSON) {
+	transactionProcess(id: $transactionId, data: $data) {
+		transaction {
+			id
+		}
+		transactionEvent {
+			id
+		}
+		data
+		errors {
+			field
+			message
+			code
+		}
+	}
+}

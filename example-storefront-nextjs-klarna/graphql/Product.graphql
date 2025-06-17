@@ -1,0 +1,10 @@
+query Product($id: ID!, $channel: String!) {
+	product(id: $id, channel: $channel) {
+		id
+		name
+		thumbnail(size: 4096) {
+			url
+			alt
+		}
+	}
+}

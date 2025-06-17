@@ -1,0 +1,16 @@
+mutation TransactionInitialize($checkoutId: ID!, $data: JSON) {
+	transactionInitialize(id: $checkoutId, paymentGateway: { id: "app.saleor.klarna", data: $data }) {
+		transaction {
+			id
+		}
+		transactionEvent {
+			id
+		}
+		data
+		errors {
+			field
+			message
+			code
+		}
+	}
+}
