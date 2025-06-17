@@ -1,0 +1,13 @@
+fragment TransactionCancelationRequestedEvent on TransactionCancelationRequested {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  action {
+    actionType
+    amount
+  }
+  transaction {
+    ...Transaction
+  }
+}

@@ -1,0 +1,18 @@
+mutation PaymentGatewayInitialize($checkoutId: ID!, $data: JSON, $appId: String!) {
+	paymentGatewayInitialize(paymentGateways: [{ id: $appId, data: $data }], id: $checkoutId) {
+		gatewayConfigs {
+			id
+			data
+			errors {
+				field
+				message
+				code
+			}
+		}
+		errors {
+			field
+			message
+			code
+		}
+	}
+}

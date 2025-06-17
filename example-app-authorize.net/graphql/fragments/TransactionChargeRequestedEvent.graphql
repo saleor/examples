@@ -1,0 +1,13 @@
+fragment TransactionChargeRequestedEvent on TransactionChargeRequested {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  action {
+    amount
+    actionType
+  }
+  transaction {
+    ...Transaction
+  }
+}

@@ -1,0 +1,117 @@
+fragment OrderOrCheckout on OrderOrCheckout {
+  __typename
+  ... on Checkout {
+    channel {
+      id
+      slug
+    }
+    shippingPrice {
+      gross {
+        ...Money
+      }
+      net {
+        ...Money
+      }
+      tax {
+        ...Money
+      }
+    }
+    deliveryMethod {
+      __typename
+      ... on ShippingMethod {
+        id
+        name
+      }
+    }
+    lines {
+      __typename
+      id
+      quantity
+      totalPrice {
+        gross {
+          ...Money
+        }
+        net {
+          ...Money
+        }
+        tax {
+          ...Money
+        }
+      }
+      checkoutVariant: variant {
+        name
+        sku
+        product {
+          name
+          thumbnail {
+            url
+          }
+          category {
+            name
+          }
+        }
+      }
+    }
+    user {
+      ...UserWithEmail
+    }
+  }
+  ... on Order {
+    number
+    channel {
+      id
+      slug
+    }
+    shippingPrice {
+      gross {
+        ...Money
+      }
+      net {
+        ...Money
+      }
+      tax {
+        ...Money
+      }
+    }
+    deliveryMethod {
+      __typename
+      ... on ShippingMethod {
+        id
+        name
+      }
+    }
+    lines {
+      __typename
+      id
+      quantity
+      taxRate
+      totalPrice {
+        gross {
+          ...Money
+        }
+        net {
+          ...Money
+        }
+        tax {
+          ...Money
+        }
+      }
+      orderVariant: variant {
+        name
+        sku
+        product {
+          name
+          thumbnail {
+            url
+          }
+          category {
+            name
+          }
+        }
+      }
+    }
+    user {
+      ...UserWithEmail
+    }
+  }
+}
