@@ -1,0 +1,44 @@
+mutation CreateCheckout($variantId: ID!) {
+	checkoutCreate(
+		input: {
+			channel: "default-channel"
+			lines: [{ quantity: 1, variantId: $variantId }]
+			languageCode: EN_US
+			email: "demo@saleor.io"
+			billingAddress: {
+				firstName: "John"
+				lastName: "Doe"
+				streetAddress1: "813 Howard Street"
+				city: "Oswego"
+				countryArea: "NY"
+				postalCode: "13126"
+				country: US
+			}
+			shippingAddress: {
+				firstName: "John"
+				lastName: "Doe"
+				streetAddress1: "813 Howard Street"
+				city: "Oswego"
+				countryArea: "NY"
+				postalCode: "13126"
+				country: US
+			}
+		}
+	) {
+		checkout {
+			id
+			availablePaymentGateways {
+				id
+				name
+			}
+			shippingMethods {
+				id
+				name
+				price {
+					currency
+					amount
+				}
+			}
+		}
+	}
+}

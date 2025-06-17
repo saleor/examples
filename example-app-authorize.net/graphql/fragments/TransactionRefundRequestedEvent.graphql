@@ -1,0 +1,13 @@
+fragment TransactionRefundRequestedEvent on TransactionRefundRequested {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  action {
+    amount
+    actionType
+  }
+  transaction {
+    ...Transaction
+  }
+}

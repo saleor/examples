@@ -1,0 +1,557 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Hosted Payment Page (HPP) API is a service that lets you integrate Klarna Payments without the need of hosting the web page that manages the client side of Klarna Payments.\nA complete HPP payment session will involve three of Klarna services:\n* [`Klarna Payments API`](https://docs.klarna.com/api/payments/) to start a payment session.\n* [`Hosted Payment Page API`](https://docs.klarna.com/api/hpp-merchant) to distribute a payment session.\n* [`Order Management API`](https://docs.klarna.com/api/ordermanagement) to capture payment or refund consumer.\n\nRead more on [Hosted payment page](https://docs.klarna.com/hosted-payment-page/).",
+    "version": "1.1",
+    "title": "HPP",
+    "license": {
+      "name": "Klarna Bank AB"
+    },
+    "x-document-metadata": {
+      "copyright": "© 2005 - 2023 Klarna Bank AB (publ). All rights reserved.",
+      "trace-id": "48f35b4-2672a66-docs-portal-api-1700477100530",
+      "date-created": "2023-11-20T10:45:31+0000"
+    }
+  },
+  "paths": {
+    "/hpp/v1/sessions": {
+      "post": {
+        "summary": "Create an HPP session",
+        "description": "Use this API to create an HPP session after creating a payment session.\nRead more on **[Create a new HPP session](https://docs.klarna.com/hosted-payment-page/api-documentation/create-session/)**.",
+        "operationId": "createHppSession",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "description": "User-Agent",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionCreationRequestV1"
+              }
+            }
+          },
+          "description": "sessionRequest",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created HPP session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionCreationResponseV1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "We were unable to create a session with the provided data. Some field constraint was violated."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You were not authorized to execute this operation."
+          },
+          "404": {
+            "description": "Payment session has expired."
+          }
+        }
+      }
+    },
+    "/hpp/v1/sessions/{session_id}": {
+      "get": {
+        "summary": "Get details of an HPP session",
+        "description": "Use this API to read an HPP session content and it's status.\nRead more on **[Read HPP session](https://docs.klarna.com/hosted-payment-page/api-documentation/read-session/)**.",
+        "operationId": "getSessionById",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "HPP session id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseV1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You were not authorized to execute this operation."
+          },
+          "404": {
+            "description": "HPP session has expired or could not be found by provided id."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Disable an HPP session",
+        "description": "Use this API to disable an HPP session if payment session had to be cancelled for any reason.\nRead more on **[Disable HPP session](https://docs.klarna.com/hosted-payment-page/api-documentation/disable-session/)**.",
+        "operationId": "disableHppSession",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "HPP session id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Session was disabled"
+          },
+          "400": {
+            "description": "HPP session has already been successfully completed."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You were not authorized to execute this operation."
+          },
+          "404": {
+            "description": "HPP session has expired or could not be found by provided id."
+          }
+        }
+      }
+    },
+    "/hpp/v1/sessions/{session_id}/distribution": {
+      "post": {
+        "summary": "Distribute an HPP session",
+        "description": "Use this API to distribute to the Consumer a link to the Hosted Payment Page either by e-mail or SMS after you have created an HPP session.\nRead more on **[Distribute link to the HPP Session to the Consumer](https://docs.klarna.com/hosted-payment-page/api-documentation/distribute-session/)**.",
+        "operationId": "distributeHppSession",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "HPP session id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DistributionRequestV1"
+              }
+            }
+          },
+          "description": "Distribution Request parameters",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "Successfully distributed the HPP Session"
+          },
+          "400": {
+            "description": "We were unable to distribute the link with the provided data. Some field constraint was violated. Or session is disabled by merchant."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "HPP session not found or access token not found"
+          },
+          "503": {
+            "description": "We were unable to distribute the link due to an internal error. Please try again"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about the Klarna REST APIs",
+    "url": "https://docs.klarna.com/api"
+  },
+  "servers": [
+    {
+      "url": "https://api.klarna.com"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "SessionCreationRequestV1": {
+        "type": "object",
+        "required": ["payment_session_url"],
+        "properties": {
+          "merchant_urls": {
+            "$ref": "#/components/schemas/MerchantUrlsV1"
+          },
+          "options": {
+            "$ref": "#/components/schemas/OptionsV1"
+          },
+          "payment_session_url": {
+            "type": "string",
+            "example": "One of https://api.klarna.com/payments/v1/sessions/92d97f60-7a78-46a5-8f68-c56fe52dc4af or https://api.klarna.com/checkout/v3/orders/92d97f60-7a78-46a5-8f68-c56fe52dc4af",
+            "description": "URL of the KP Session or KCO Order to be hosted by the HPP Session"
+          },
+          "profile_id": {
+            "type": "string",
+            "example": "87ab3565-5e06-4006-9ada-8eedc6926703",
+            "description": "Profile id for default session options"
+          }
+        }
+      },
+      "OptionsV1": {
+        "type": "object",
+        "properties": {
+          "background_images": {
+            "type": "array",
+            "description": "List of Images to use for the background. Best matching resolution will be used.",
+            "items": {
+              "$ref": "#/components/schemas/BackgroundImageV1"
+            }
+          },
+          "logo_url": {
+            "type": "string",
+            "example": "https://example.com/logo.jpg",
+            "description": "URL of the logo to be displayed"
+          },
+          "page_title": {
+            "type": "string",
+            "example": "Complete your purchase",
+            "description": "Title for the Payment Page"
+          },
+          "payment_method_categories": {
+            "type": "array",
+            "description": "Payment Method Categories to show on the Payment Page. All available categories will be given to the customer if none is specified using payment_method_category or payment_method_categories. Ignored field for KCO Orders.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DIRECT_DEBIT",
+                "DIRECT_BANK_TRANSFER",
+                "PAY_NOW",
+                "PAY_LATER",
+                "PAY_OVER_TIME",
+                "KLARNA"
+              ]
+            }
+          },
+          "payment_method_category": {
+            "type": "string",
+            "description": "Payment Method Category to show on the Payment Page. All available categories will be given to the customer if none is specified using payment_method_category or payment_method_categories. Ignored field for KCO Orders.",
+            "enum": [
+              "DIRECT_DEBIT",
+              "DIRECT_BANK_TRANSFER",
+              "PAY_NOW",
+              "PAY_LATER",
+              "PAY_OVER_TIME",
+              "KLARNA"
+            ]
+          },
+          "place_order_mode": {
+            "type": "string",
+            "example": "PLACE_ORDER",
+            "enum": ["PLACE_ORDER", "CAPTURE_ORDER", "NONE"]
+          },
+          "purchase_type": {
+            "type": "string",
+            "example": "BUY",
+            "description": "The type of this purchase",
+            "enum": ["BUY", "RENT", "BOOK", "SUBSCRIBE", "DOWNLOAD", "ORDER", "CONTINUE"]
+          },
+          "show_subtotal_detail": {
+            "type": "string",
+            "example": "HIDE",
+            "enum": ["HIDE"]
+          }
+        }
+      },
+      "DistributionContactV1": {
+        "type": "object",
+        "properties": {
+          "access_id": {
+            "type": "string",
+            "description": "Access Id for connection to HPP session. Only required if distribution method is 'token'",
+            "enum": ["klarna:09f4a78d-d096-47d4-a0f6-abcf680c70fe", "467521087419", "278352"]
+          },
+          "email": {
+            "type": "string",
+            "example": "test@example.com",
+            "description": "Email where to send the email with the HPP link. Only required if distribution method is 'email'"
+          },
+          "phone": {
+            "type": "string",
+            "example": "07000212345",
+            "description": "Phone number where to send the sms with the HPP link. Only required if distribution method is 'sms'"
+          },
+          "phone_country": {
+            "type": "string",
+            "example": "SE",
+            "description": "ISO 3166 alpha-2 phone country. Only required if distribution method is 'sms'"
+          }
+        }
+      },
+      "CustomerV1": {
+        "type": "object",
+        "properties": {
+          "date_of_birth": {
+            "type": "string",
+            "example": "1987-08-15",
+            "description": "Customer's date of birth (YYYY-MM-dd)"
+          },
+          "family_name": {
+            "type": "string",
+            "description": "Customer's family name"
+          },
+          "given_name": {
+            "type": "string",
+            "description": "Customer's given name"
+          },
+          "national_identification_number": {
+            "type": "string",
+            "example": "19870815-84932",
+            "description": "Customer's national identity number"
+          },
+          "title": {
+            "type": "string",
+            "example": "Mr",
+            "description": "Customer's title"
+          }
+        }
+      },
+      "SessionCreationResponseV1": {
+        "type": "object",
+        "properties": {
+          "distribution_module": {
+            "$ref": "#/components/schemas/DistributionModuleV1"
+          },
+          "distribution_url": {
+            "type": "string",
+            "example": "https://api.klarna.com/hpp/v1/sessions/9cbc9884-1fdb-45a8-9694-9340340d0436/distribution",
+            "description": "Endpoint for link distribution"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2038-01-19T03:14:07.000Z",
+            "description": "Session expiration time"
+          },
+          "manual_identification_check_url": {
+            "example": "https://api.klarna.com/hpp/v1/sessions/9cbc9884-1fdb-45a8-9694-9340340d0436/manual-id-check",
+            "description": "Endpoint for manual identification check",
+            "type": "string"
+          },
+          "qr_code_url": {
+            "type": "string",
+            "example": "https://pay.klarna.com/eu/hpp/payments/a94e7760-d135-2721-a538-d6294ea254ed/qr",
+            "description": "HPP url to download qr code image"
+          },
+          "redirect_url": {
+            "type": "string",
+            "example": "https://pay.klarna.com/eu/hpp/payments/2OCkffK",
+            "description": "HPP url to redirect the consumer to. ECOMMERCE only"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "9cbc9884-1fdb-45a8-9694-9340340d0436",
+            "description": "HPP session id"
+          },
+          "session_url": {
+            "type": "string",
+            "example": "https://api.klarna.com/hpp/v1/sessions/9cbc9884-1fdb-45a8-9694-9340340d0436",
+            "description": "Endpoint to get the session"
+          }
+        }
+      },
+      "DistributionModuleV1": {
+        "type": "object",
+        "properties": {
+          "generation_url": {
+            "type": "string"
+          },
+          "standalone_url": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "MerchantUrlsV1": {
+        "type": "object",
+        "properties": {
+          "back": {
+            "type": "string",
+            "example": "https://example.com/back?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&hppId={{session_id}}",
+            "description": "Back URL"
+          },
+          "cancel": {
+            "type": "string",
+            "example": "https://example.com/cancel?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&hppId={{session_id}}",
+            "description": "Cancel URL"
+          },
+          "error": {
+            "type": "string",
+            "example": "https://example.com/error?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&hppId={{session_id}}",
+            "description": "System error URL"
+          },
+          "failure": {
+            "type": "string",
+            "example": "https://example.com/fail?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&hppId={{session_id}}",
+            "description": "Failure URL"
+          },
+          "status_update": {
+            "type": "string",
+            "example": "https://example.com/status_update?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&secret=yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy&hppId={{session_id}}",
+            "description": "Status update URL"
+          },
+          "success": {
+            "type": "string",
+            "example": "https://example.com/success?sid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&hppId={{session_id}}&token={{authorization_token}}",
+            "description": "Success URL"
+          }
+        }
+      },
+      "MerchantManualIdentificationV1": {
+        "type": "object",
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "example": "A78",
+            "description": "Identification challenge"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/CustomerV1"
+          },
+          "customer_obfuscated": {
+            "$ref": "#/components/schemas/CustomerV1"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2038-01-19T03:14:07.000Z",
+            "description": "Session identification expiry time (YYYY-MM-ddThh:mm:ss.fffZ)"
+          }
+        }
+      },
+      "DistributionRequestV1": {
+        "type": "object",
+        "required": ["contact_information", "method"],
+        "properties": {
+          "contact_information": {
+            "$ref": "#/components/schemas/DistributionContactV1"
+          },
+          "method": {
+            "type": "string",
+            "example": "sms",
+            "description": "Method used for distribution",
+            "enum": ["sms", "email", "token"]
+          },
+          "template": {
+            "type": "string",
+            "example": "INSTORE_PURCHASE",
+            "description": "Template to use for distribution. In the current version this value is not used and might be removed in the future.",
+            "enum": ["INSTORE_PURCHASE"]
+          }
+        }
+      },
+      "SessionResponseV1": {
+        "type": "object",
+        "properties": {
+          "authorization_token": {
+            "type": "string",
+            "example": "70850a20-a2a0-5c70-810c-096fa6f850bb",
+            "description": "Authorization token (only for KP Sessions)"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/CustomerV1"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2038-01-19T03:14:07.000Z",
+            "description": "Session expiration time"
+          },
+          "klarna_reference": {
+            "type": "string",
+            "example": "ffc25786",
+            "description": "Klarna reference provided by MoOD"
+          },
+          "manual_identification": {
+            "$ref": "#/components/schemas/MerchantManualIdentificationV1"
+          },
+          "order_id": {
+            "type": "string",
+            "example": "93d644a2-43f3-11e9-b210-d663bd873d93",
+            "description": "Order id of the payment session"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "a15b228c-02ad-11e9-8eb2-f2801f1b9fd1",
+            "description": "The id of the HPP Session"
+          },
+          "status": {
+            "type": "string",
+            "example": "COMPLETED",
+            "description": "Current HPP Session status",
+            "enum": [
+              "WAITING",
+              "BACK",
+              "IN_PROGRESS",
+              "MANUAL_ID_CHECK",
+              "COMPLETED",
+              "CANCELLED",
+              "FAILED",
+              "DISABLED",
+              "ERROR"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2038-01-19T03:14:07.000Z",
+            "description": "Latest status update time"
+          }
+        }
+      },
+      "BackgroundImageV1": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Url for the image"
+          },
+          "width": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Width of the image"
+          }
+        }
+      }
+    }
+  }
+}

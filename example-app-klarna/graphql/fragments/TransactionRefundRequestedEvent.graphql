@@ -1,0 +1,60 @@
+fragment TransactionRefundRequestedEvent on TransactionRefundRequested {
+  __typename
+  issuedAt
+  version
+  grantedRefund {
+    id
+    amount {
+      ...Money
+    }
+    shippingCostsIncluded
+    reason
+    lines {
+      id
+      quantity
+      reason
+      orderLine {
+        ...OrderLine
+      }
+    }
+  }
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  action {
+    amount
+    actionType
+  }
+  transaction {
+    id
+    pspReference
+    events {
+      type
+      amount {
+        ...Money
+      }
+      pspReference
+    }
+    chargedAmount {
+      ...Money
+    }
+    checkout {
+      id
+      totalPrice {
+        gross {
+          ...Money
+        }
+      }
+      ...OrderOrCheckoutLines
+    }
+    sourceObject: order {
+      id
+      total {
+        gross {
+          ...Money
+        }
+      }
+      ...OrderOrCheckoutLines
+    }
+  }
+}

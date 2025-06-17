@@ -1,0 +1,47 @@
+{
+	"name": "example-nextjs-app-router-starter",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --port 8001",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint --fix --dir src",
+		"format": "prettier --write .",
+		"generate": "graphql-codegen --config .graphqlrc.ts",
+		"postinstall": "pnpm generate"
+	},
+	"dependencies": {
+		"@apollo/client": "3.8.5",
+		"graphql": "16.8.0",
+		"graphql-tag": "2.12.6",
+		"next": "13.4.19",
+		"react": "18.2.0",
+		"react-acceptjs": "0.4.0",
+		"react-dom": "18.2.0",
+		"zod": "3.22.4"
+	},
+	"devDependencies": {
+		"@graphql-codegen/cli": "5.0.0",
+		"@graphql-codegen/client-preset": "4.1.0",
+		"@graphql-typed-document-node/core": "3.2.0",
+		"@next/env": "13.4.19",
+		"@types/node": "20.6.0",
+		"@types/react": "18.2.21",
+		"@types/react-dom": "18.2.7",
+		"@typescript-eslint/eslint-plugin": "6.7.0",
+		"@typescript-eslint/parser": "6.7.0",
+		"autoprefixer": "10.4.15",
+		"eslint": "8.49.0",
+		"eslint-config-next": "13.4.19",
+		"eslint-config-prettier": "9.0.0",
+		"postcss": "8.4.29",
+		"prettier": "3.0.3",
+		"tailwindcss": "3.3.3",
+		"typescript": "5.2.2"
+	},
+	"engines": {
+		"node": ">=18",
+		"pnpm": ">=8"
+	}
+}

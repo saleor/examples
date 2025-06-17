@@ -1,0 +1,22 @@
+fragment Transaction on TransactionItem {
+  id
+  pspReference
+  sourceObject: order {
+    ... on Order {
+      total {
+        gross {
+          ...Money
+        }
+      }
+    }
+    ...OrderOrCheckout
+  }
+  privateMetadata {
+    key
+    value
+  }
+  authorizedAmount {
+    amount
+    currency
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "pspReference": { "type": "string" },
+    "result": { "$ref": "definitions.json#/definitions/TransactionChargeRequestedAllowedResult" },
+    "amount": { "$ref": "definitions.json#/definitions/PositiveDecimal" },
+    "time": { "$ref": "definitions.json#/definitions/DateTime" },
+    "externalUrl": { "type": "string" },
+    "message": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "required": ["pspReference"]
+}

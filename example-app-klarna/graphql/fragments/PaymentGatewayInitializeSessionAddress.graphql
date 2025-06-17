@@ -1,0 +1,5 @@
+fragment PaymentGatewayInitializeSessionAddress on Address {
+  country {
+    code
+  }
+}
