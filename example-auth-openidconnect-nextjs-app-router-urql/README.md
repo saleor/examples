@@ -1,4 +1,4 @@
-# Example: Auth in Next.js using OpenID Connect and Apollo Client
+# Example: Auth in Next.js using OpenID Connect and Urql Client
 
 ### Prerequisites
 
