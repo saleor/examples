@@ -1,3 +1,2 @@
-example-app-* @saleor/js
-example-auth-* @saleor/js
+example-* @saleor/js
 example-storefront-* @saleor/cx-architects
