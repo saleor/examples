@@ -1,0 +1,53 @@
+fragment TransactionProcessSessionEvent on TransactionProcessSession {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  data
+  merchantReference
+  action {
+    amount
+    currency
+    actionType
+  }
+  transaction {
+    ...Transaction
+  }
+  sourceObject {
+    __typename
+    ... on Checkout {
+      id
+      languageCode
+      userEmail: email
+      billingAddress {
+        ...Address
+      }
+      shippingAddress {
+        ...Address
+      }
+      total: totalPrice {
+        gross {
+          ...Money
+        }
+      }
+      ...OrderOrCheckout
+    }
+    ... on Order {
+      id
+      languageCodeEnum
+      userEmail
+      billingAddress {
+        ...Address
+      }
+      shippingAddress {
+        ...Address
+      }
+      total {
+        gross {
+          ...Money
+        }
+      }
+      ...OrderOrCheckout
+    }
+  }
+}

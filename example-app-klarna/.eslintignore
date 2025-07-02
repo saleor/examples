@@ -1,0 +1,3 @@
+generated/
+src/schemas/**/*.mjs
+src/schemas/**/*.mts

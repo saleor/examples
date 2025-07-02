@@ -1,0 +1,60 @@
+{
+  "name": "saleor-app-template",
+  "version": "1.0.0",
+  "license": "(BSD-3-Clause AND CC-BY-4.0)",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm generate && next dev",
+    "build": "pnpm generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
+    "generate": "graphql-codegen",
+    "test": "vitest"
+  },
+  "saleor": {
+    "schemaVersion": "3.10"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "4.0.0-alpha.61",
+    "@saleor/app-sdk": "0.41.0",
+    "@saleor/macaw-ui": "^0.8.0-pre.101",
+    "@tanstack/react-query": "^4.35.7",
+    "@urql/exchange-auth": "^1.0.0",
+    "@vitejs/plugin-react": "^3.0.1",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
+    "jsdom": "^20.0.3",
+    "next": "13.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "urql": "^4.0.2",
+    "vite": "^4.0.5",
+    "vitest": "^0.27.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/introspection": "3.0.1",
+    "@graphql-codegen/schema-ast": "^3.0.1",
+    "@graphql-codegen/typed-document-node": "4.0.1",
+    "@graphql-codegen/typescript": "3.0.4",
+    "@graphql-codegen/typescript-operations": "3.0.4",
+    "@graphql-codegen/typescript-urql": "^3.7.3",
+    "@graphql-codegen/urql-introspection": "2.2.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "eslint": "8.31.0",
+    "eslint-config-next": "13.1.2",
+    "eslint-config-prettier": "^8.6.0",
+    "prettier": "^2.8.2",
+    "typescript": "5.0.4"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,css,md,json}": "prettier --write"
+  }
+}

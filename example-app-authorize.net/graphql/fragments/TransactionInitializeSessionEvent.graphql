@@ -1,0 +1,25 @@
+fragment TransactionInitializeSessionEvent on TransactionInitializeSession {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  data
+  merchantReference
+  action {
+    amount
+    currency
+    actionType
+  }
+  issuingPrincipal {
+    ... on Node {
+      id
+    }
+  }
+  transaction {
+    ...Transaction
+  }
+  sourceObject {
+    __typename
+    ...OrderOrCheckoutSourceObject
+  }
+}

@@ -1,0 +1,49 @@
+fragment PaymentGatewayInitializeSessionEvent on PaymentGatewayInitializeSession {
+  __typename
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  data
+  amount
+  issuingPrincipal {
+    ... on Node {
+      id
+    }
+  }
+  sourceObject {
+    __typename
+    ... on Checkout {
+      id
+      channel {
+        id
+        slug
+      }
+      languageCode
+      billingAddress {
+        ...PaymentGatewayInitializeSessionAddress
+      }
+      total: totalPrice {
+        gross {
+          ...Money
+        }
+      }
+    }
+    ... on Order {
+      id
+      channel {
+        id
+        slug
+      }
+      languageCodeEnum
+      userEmail
+      billingAddress {
+        ...PaymentGatewayInitializeSessionAddress
+      }
+      total {
+        gross {
+          ...Money
+        }
+      }
+    }
+  }
+}

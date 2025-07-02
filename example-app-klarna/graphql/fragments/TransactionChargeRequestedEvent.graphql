@@ -1,0 +1,24 @@
+fragment TransactionChargeRequestedEvent on TransactionChargeRequested {
+  __typename
+  recipient {
+    ...PaymentGatewayRecipient
+  }
+  action {
+    amount
+    actionType
+  }
+  transaction {
+    id
+    pspReference
+    sourceObject: order {
+      ... on Order {
+        total {
+          gross {
+            ...Money
+          }
+        }
+      }
+      ...OrderOrCheckoutLines
+    }
+  }
+}

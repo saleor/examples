@@ -1,0 +1,9 @@
+query GetFirstVariants($channel:String!){
+  productVariants(channel:$channel, first:10){
+    edges{
+      node{
+        ...VariantDetails
+      }
+    }
+  }
+}

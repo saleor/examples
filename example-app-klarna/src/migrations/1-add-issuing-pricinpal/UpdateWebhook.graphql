@@ -1,0 +1,12 @@
+mutation Migration_01_UpdateWebhook($webhookId: ID!, $newQuery: String!) {
+  webhookUpdate(id: $webhookId, input: { query: $newQuery }) {
+    webhook {
+      id
+    }
+    errors {
+      code
+      field
+      message
+    }
+  }
+}

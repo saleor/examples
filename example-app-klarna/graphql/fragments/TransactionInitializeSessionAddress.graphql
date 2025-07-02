@@ -1,0 +1,14 @@
+fragment TransactionInitializeSessionAddress on Address {
+  firstName
+  lastName
+  phone
+  city
+  streetAddress1
+  streetAddress2
+  postalCode
+  countryArea
+  companyName
+  country {
+    code
+  }
+}

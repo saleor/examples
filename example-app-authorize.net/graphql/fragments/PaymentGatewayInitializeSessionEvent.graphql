@@ -1,0 +1,17 @@
+fragment PaymentGatewayInitializeSessionEvent on PaymentGatewayInitializeSession {
+  __typename
+  recipient {
+    ...WebhookRecipient
+  }
+  data
+  amount
+  issuingPrincipal {
+    ... on Node {
+      id
+    }
+  }
+  sourceObject {
+    __typename
+    ...OrderOrCheckoutSourceObject
+  }
+}

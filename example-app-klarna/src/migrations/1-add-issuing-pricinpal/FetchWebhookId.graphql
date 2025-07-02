@@ -1,0 +1,10 @@
+query Migration_01_FetchWebhookIds {
+  app {
+    webhooks {
+      id
+      syncEvents {
+        eventType
+      }
+    }
+  }
+}

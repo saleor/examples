@@ -1,0 +1,7 @@
+mutation CreateExampleCheckout($input: CheckoutCreateInput!){
+  checkoutCreate(input: $input){
+    checkout{
+      ...CheckoutDetails
+    }
+  }
+}
