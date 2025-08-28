@@ -8,6 +8,7 @@ import {
   FetchAppDetailsDocument,
   FetchAppDetailsQuery,
   UpdateAppMetadataDocument,
+  RemoveMetadataDocument,
 } from "../../../generated/graphql";
 
 gql`
@@ -96,6 +97,36 @@ export async function mutateMetadata(client: SimpleGraphqlClient, metadata: Meta
   );
 }
 
+export async function deleteMetadata(client: SimpleGraphqlClient, keys: string[]) {
+  // to delete the metadata, ID is required
+  const { error: idQueryError, data: idQueryData } = await client
+    .query(FetchAppDetailsDocument, {})
+    .toPromise();
+
+  if (idQueryError) {
+    throw new Error(
+      "Could not fetch the app id. Please check if auth data for the client are valid."
+    );
+  }
+
+  const appId = idQueryData?.app?.id;
+
+  if (!appId) {
+    throw new Error("Could not fetch the app ID");
+  }
+
+  const { error: mutationError } = await client
+    .mutation(RemoveMetadataDocument, {
+      id: appId,
+      keys: keys,
+    })
+    .toPromise();
+
+  if (mutationError) {
+    throw new Error(`Delete mutation error: ${mutationError.message}`);
+  }
+}
+
 export const createSettingsManager = (client: SimpleGraphqlClient): SettingsManager => {
   /*
    * EncryptedMetadataManager gives you interface to manipulate metadata and cache values in memory.
@@ -107,5 +138,6 @@ export const createSettingsManager = (client: SimpleGraphqlClient): SettingsMana
     encryptionKey: process.env.SECRET_KEY!,
     fetchMetadata: () => fetchAllMetadata(client),
     mutateMetadata: (metadata) => mutateMetadata(client, metadata),
+    deleteMetadata: (keys) => deleteMetadata(client, keys),
   });
 };
