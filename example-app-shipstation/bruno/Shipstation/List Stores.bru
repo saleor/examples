@@ -1,0 +1,15 @@
+meta {
+  name: List Stores
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://ssapi.shipstation.com/stores?showInactive=true
+  body: none
+  auth: none
+}
+
+query {
+  showInactive: true
+}
