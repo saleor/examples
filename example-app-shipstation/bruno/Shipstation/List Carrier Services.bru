@@ -1,0 +1,15 @@
+meta {
+  name: List Carrier Services
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://ssapi.shipstation.com/carriers/listservices?carrierCode=stamps_com
+  body: none
+  auth: none
+}
+
+query {
+  carrierCode: stamps_com
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Get Rates
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://ssapi.shipstation.com/shipments/getrates
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "carrierCode": "stamps_com",
+    "serviceCode": null,
+    "packageCode": null,
+    "fromPostalCode": "78700",
+    "toState": "DC",
+    "toCountry": "US",
+    "toPostalCode": "20500",
+    "toCity": "Washington",
+    "weight": {
+      "value": 1,
+      "units": "grams"
+    },
+    "confirmation": "delivery",
+    "residential": false
+  }
+}
