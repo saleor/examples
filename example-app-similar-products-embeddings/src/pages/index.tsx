@@ -43,7 +43,7 @@ const StatCard = ({
   description?: string;
 }) => (
   <Box
-    padding={6}
+    paddingY={6}
     borderWidth={1}
     borderRadius={3}
     backgroundColor="default1"
@@ -257,7 +257,7 @@ const SimilarProductsApp: NextPage = () => {
             <Text>Loading stats...</Text>
           </Box>
         ) : error ? (
-          <Box padding={4} backgroundColor="critical1" borderRadius={3}>
+          <Box paddingY={4} backgroundColor="critical1" borderRadius={3}>
             <Text color="critical1">Error: {error}</Text>
           </Box>
         ) : stats ? (
@@ -266,16 +266,6 @@ const SimilarProductsApp: NextPage = () => {
               title="Total Products"
               value={stats.total}
               description="Products indexed with embeddings"
-            />
-            <StatCard
-              title="Published"
-              value={stats.published}
-              description="Published products in index"
-            />
-            <StatCard
-              title="In Stock"
-              value={stats.inStock}
-              description="Products available for purchase"
             />
             <StatCard
               title="Last Updated"
