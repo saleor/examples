@@ -53,6 +53,9 @@ interface Product {
   slug: string;
   name: string;
   description?: string;
+  productType: {
+    name: string;
+  };
   category?: {
     name: string;
   };

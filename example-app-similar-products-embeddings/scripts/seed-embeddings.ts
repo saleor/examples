@@ -23,29 +23,12 @@ function loadEnvFile() {
       }
     });
   } catch (error) {
-    console.warn('Could not load .env file:', error.message);
+    console.warn('Could not load .env file:', error instanceof Error ? error.message : String(error));
   }
 }
 
 // Load environment variables before importing other modules
 loadEnvFile();
-
-// Polyfill fetch for Node.js 16 compatibility
-if (!globalThis.fetch) {
-  try {
-    // Try to use undici fetch which is available in newer Node.js versions
-    const { fetch } = await import('undici');
-    globalThis.fetch = fetch;
-  } catch {
-    try {
-      // Fallback to node-fetch
-      const { default: fetch } = await import('node-fetch');
-      globalThis.fetch = fetch;
-    } catch {
-      console.warn('Could not load fetch polyfill - OpenAI client may not work');
-    }
-  }
-}
 
 import { gql } from 'urql';
 
@@ -102,6 +85,9 @@ interface Product {
   slug: string;
   name: string;
   description?: string;
+  productType: {
+    name: string;
+  };
   category?: {
     name: string;
   };

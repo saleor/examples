@@ -2,7 +2,7 @@ import { actions, useAppBridge } from "@saleor/app-sdk/app-bridge";
 import { Box, Text } from "@saleor/macaw-ui";
 import Link from "next/link";
 
-import { useLastOrderQuery } from "@/generated/graphql";
+// import { useLastOrderQuery } from "@/generated/graphql";
 
 /**
  * GraphQL Code Generator scans for gql tags and generates types based on them.
@@ -26,8 +26,11 @@ export const OrderExample = () => {
   const { appBridge } = useAppBridge();
 
   // Using the generated hook
-  const [{ data, fetching }] = useLastOrderQuery();
-  const lastOrder = data?.orders?.edges[0]?.node;
+  // const [{ data, fetching }] = useLastOrderQuery();
+  // const lastOrder = data?.orders?.edges[0]?.node;
+  const data = null;
+  const fetching = false;
+  const lastOrder = null;
 
   const navigateToOrder = (id: string) => {
     appBridge?.dispatch(
@@ -61,21 +64,7 @@ export const OrderExample = () => {
               borderColor={"default2"}
               marginY={4}
             >
-              <Text>{`The last order #${lastOrder.number}:`}</Text>
-              <ul>
-                <li>
-                  <Text>{`Contains ${generateNumberOfLinesText(lastOrder.lines)} 🛒`}</Text>
-                </li>
-                <li>
-                  <Text>{`For a total amount of ${lastOrder.total.gross.amount} ${lastOrder.total.gross.currency} 💸`}</Text>
-                </li>
-                <li>
-                  <Text>{`Ships to ${lastOrder.shippingAddress?.country.country} 📦`}</Text>
-                </li>
-              </ul>
-              <Link onClick={() => navigateToOrder(lastOrder.id)} href={`/orders/${lastOrder.id}`}>
-                See the order details →
-              </Link>
+              <Text>Order example would be displayed here</Text>
             </Box>
           </>
         )}

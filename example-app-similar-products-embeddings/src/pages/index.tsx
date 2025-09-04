@@ -1,3 +1,4 @@
+import { actions, useAppBridge } from "@saleor/app-sdk/app-bridge";
 import { Box, Button, Input, Select, Text } from "@saleor/macaw-ui";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -63,9 +64,9 @@ const StatCard = ({
 );
 
 const SimilarProductCard = ({ product }: { product: SimilarProduct }) => {
-  const dashboardUrl = `https://rolmops.eu.saleor.cloud/dashboard/products/${encodeURIComponent(
-    product.productId
-  )}`;
+  const { appBridge } = useAppBridge();
+
+  const dashboardUrl = `/products/${encodeURIComponent(product.productId)}`;
 
   return (
     <Box padding={5} borderWidth={1} borderRadius={3} backgroundColor="default1">
@@ -78,21 +79,19 @@ const SimilarProductCard = ({ product }: { product: SimilarProduct }) => {
           />
         )}
         <Box style={{ flex: 1 }}>
-          <Text size={8} marginBottom={1} display="block">
-            <a
-              href={dashboardUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                textDecoration: "none",
-                color: "#0969da",
-                fontWeight: "bold",
-              }}
-              onMouseOver={(e) => ((e.target as HTMLElement).style.textDecoration = "underline")}
-              onMouseOut={(e) => ((e.target as HTMLElement).style.textDecoration = "none")}
-            >
-              {product.name}
-            </a>
+          <Text
+            onClick={() => appBridge?.dispatch(actions.Redirect({ to: dashboardUrl }))}
+            size={8}
+            marginBottom={1}
+            display="block"
+            color="accent1"
+            textDecoration={{
+              hover: "underline",
+            }}
+            fontWeight="medium"
+            cursor="pointer"
+          >
+            {product.name}
           </Text>
           <Text size={6} color="default2" marginBottom={1} display="block">
             {product.slug}
@@ -426,7 +425,7 @@ const SimilarProductsApp: NextPage = () => {
             <strong>Example:</strong>
           </Text>
           <Box padding={3} backgroundColor="default2" borderRadius={2} marginLeft={2}>
-            <Text size={6} fontFamily="mono" display="block">
+            <Text size={6} display="block" style={{ fontFamily: "mono" }}>
               /api/similar?productId=UHJvZHVjdDo3Mg==&k=6
             </Text>
           </Box>
