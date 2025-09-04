@@ -160,48 +160,6 @@ export class EmbeddingService {
     }
   }
 
-  /**
-   * Extract Product Display Information
-   * 
-   * WHAT IT DOES:
-   * Gets product availability and display info needed for the UI.
-   * This is separate from embedding generation - it's for showing results.
-   * 
-   * SALEOR CONCEPTS:
-   * - channelListings: Products can be published in different sales channels
-   * - variants: Different versions (sizes, colors) with their own stock levels
-   * - thumbnail: Product image for display
-   */
-  extractProductInfo(product: ProductData): {
-    isPublished: boolean;
-    inStock: boolean;
-    thumbUrl?: string;
-  } {
-    let isPublished = false;
-    let inStock = false;
-
-    // Check if product is published in any channel
-    if (product.channelListings) {
-      isPublished = product.channelListings.some(listing => listing.isPublished);
-    }
-
-    // Check if any variant has stock available
-    if (product.variants) {
-      inStock = product.variants.some(variant => 
-        variant.quantityAvailable !== undefined && 
-        variant.quantityAvailable !== null && 
-        variant.quantityAvailable > 0
-      );
-    }
-
-    const thumbUrl = product.thumbnail?.url;
-
-    return {
-      isPublished,
-      inStock,
-      thumbUrl,
-    };
-  }
 
   /**
    * Check if Product Needs Re-embedding

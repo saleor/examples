@@ -5,6 +5,88 @@ import { EmbeddingService } from '@/lib/embeddings';
 import { saleorApp } from '@/saleor-app';
 import { gql } from 'urql';
 
+// Configuration for parallel processing
+const CONCURRENCY_LIMIT = parseInt(process.env.EMBEDDING_CONCURRENCY || '3', 10); // Lower for API to be more conservative
+const BATCH_SIZE = parseInt(process.env.EMBEDDING_BATCH_SIZE || '20', 10);
+
+/**
+ * Process a single product and generate its embedding
+ */
+async function processProduct(
+  product: Product,
+  embeddingService: EmbeddingService,
+  db: any
+): Promise<{ success: boolean; skipped: boolean; error?: string }> {
+  try {
+    console.log(`Processing: ${product.name} (${product.id})`);
+
+    const embedding = await embeddingService.generateEmbedding(product);
+    if (!embedding) {
+      console.log(`Skipped: No usable content for embedding`);
+      return { success: false, skipped: true };
+    }
+
+    await db.upsertProduct({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      vector: embedding,
+      updatedAt: new Date().toISOString(),
+    });
+
+    console.log(`Indexed successfully: ${product.name}`);
+    return { success: true, skipped: false };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`Error processing ${product.id}:`, errorMessage);
+    return { success: false, skipped: false, error: errorMessage };
+  }
+}
+
+/**
+ * Process products in parallel with concurrency control
+ */
+async function processProductsInParallel(
+  products: Product[],
+  embeddingService: EmbeddingService,
+  db: any
+): Promise<{ processed: number; skipped: number; errors: number }> {
+  const results = { processed: 0, skipped: 0, errors: 0 };
+  
+  // Create chunks of products to process in parallel
+  const chunks: Product[][] = [];
+  for (let i = 0; i < products.length; i += CONCURRENCY_LIMIT) {
+    chunks.push(products.slice(i, i + CONCURRENCY_LIMIT));
+  }
+
+  for (const chunk of chunks) {
+    // Process chunk in parallel
+    const chunkPromises = chunk.map(product => 
+      processProduct(product, embeddingService, db)
+    );
+    
+    const chunkResults = await Promise.all(chunkPromises);
+    
+    // Aggregate results
+    chunkResults.forEach(result => {
+      if (result.success) {
+        results.processed++;
+      } else if (result.skipped) {
+        results.skipped++;
+      } else {
+        results.errors++;
+      }
+    });
+
+    // Small delay between chunks to avoid overwhelming the API
+    if (chunks.indexOf(chunk) < chunks.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+  }
+
+  return results;
+}
+
 const GET_ALL_PRODUCTS = gql`
   query GetAllProducts($first: Int, $after: String, $channel: String) {
     products(first: $first, after: $after, channel: $channel) {
@@ -125,11 +207,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let hasNextPage = true;
     let after: string | null = null;
 
-    console.log('Starting embeddings seed process via API...');
+    console.log(`Starting embeddings seed process via API... (Concurrency=${CONCURRENCY_LIMIT}, Batch Size=${BATCH_SIZE})`);
 
     while (hasNextPage) {
       const result: any = await client.query(GET_ALL_PRODUCTS, {
-        first: 20,
+        first: BATCH_SIZE,
         after,
         channel: "default-channel",
       }).toPromise();
@@ -148,41 +230,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       hasNextPage = products.pageInfo.hasNextPage;
       after = products.pageInfo.endCursor;
 
-      console.log(`Processing batch of ${products.edges.length} products...`);
+      console.log(`Processing batch of ${products.edges.length} products in parallel...`);
 
-      for (const edge of products.edges) {
-        const product = edge.node as Product;
+      // Extract products from edges
+      const productList = products.edges.map((edge: any) => edge.node as Product);
 
-        try {
-          console.log(`Processing: ${product.name} (${product.id})`);
+      // Process products in parallel
+      const batchResults = await processProductsInParallel(
+        productList,
+        embeddingService,
+        db
+      );
 
-          const embedding = await embeddingService.generateEmbedding(product);
-          if (!embedding) {
-            console.log(`Skipped: No usable content for embedding`);
-            totalSkipped++;
-            continue;
-          }
+      // Update totals
+      totalProcessed += batchResults.processed;
+      totalSkipped += batchResults.skipped;
+      totalErrors += batchResults.errors;
 
-          const { isPublished, inStock, thumbUrl } = embeddingService.extractProductInfo(product);
-
-          await db.upsertProduct({
-            productId: product.id,
-            slug: product.slug,
-            name: product.name,
-            thumbUrl,
-            isPublished,
-            inStock,
-            vector: embedding,
-            updatedAt: new Date().toISOString(),
-          });
-
-          console.log(`Indexed successfully: ${product.name}`);
-          totalProcessed++;
-        } catch (error) {
-          console.error(`Error processing ${product.id}:`, error);
-          totalErrors++;
-        }
-      }
+      console.log(`Batch completed: ${batchResults.processed} processed, ${batchResults.skipped} skipped, ${batchResults.errors} errors`);
 
       // Add a small delay between batches to avoid overwhelming the API
       if (hasNextPage) {

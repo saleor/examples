@@ -28,8 +28,6 @@ export interface ProductEmbedding {
   slug: string;           // URL-friendly product identifier
   name: string;           // Human-readable product name
   thumbUrl?: string;      // Product image for UI display
-  isPublished: boolean;   // Whether product is visible in store
-  inStock: boolean;       // Whether product is available for purchase
   vector: number[];       // The actual embedding (1536 dimensions)
   updatedAt: string;      // ISO timestamp of last update
 }
