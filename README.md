@@ -34,3 +34,7 @@
 * `example-auth-*` - examples that show how to implement storefront login with Saleor
 * `example-storefront-*` - examples that show how to implement storefront with Saleor
 * `example-app-*` - examples that show how to implement Saleor App
+
+## Running examples
+
+Ensure you have checked each example's `.env.example` file for required environment variables. Copy the file to `.env` and fill in the required values. Usually you want to set Saleor instance to connect to.
