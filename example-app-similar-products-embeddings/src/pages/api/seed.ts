@@ -46,7 +46,7 @@ async function processProduct(
 /**
  * Process products in parallel with concurrency control
  */
-async function processProductsInParallel(
+async function processProductsConcurently(
   products: Product[],
   embeddingService: EmbeddingService,
   db: any
