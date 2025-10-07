@@ -236,7 +236,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const productList = products.edges.map((edge: any) => edge.node as Product);
 
       // Process products in parallel
-      const batchResults = await processProductsInParallel(
+      const batchResults = await processProductsConcurently(
         productList,
         embeddingService,
         db
