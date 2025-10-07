@@ -311,8 +311,6 @@ async function seedEmbeddings() {
     console.log('');
     console.log('📈 Final Database Stats:');
     console.log(`   Total indexed: ${stats.total}`);
-    console.log(`   Published: ${stats.published}`);
-    console.log(`   In stock: ${stats.inStock}`);
     console.log(`   Last updated: ${stats.lastUpdate}`);
 
   } catch (error) {

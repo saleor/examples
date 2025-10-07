@@ -4,7 +4,7 @@ import { getDatabase, SimilarProduct } from '@/lib/file-database';
 
 interface SimilarProductsRequest {
   productId: string;
-  k?: number;
+  maxResults?: number;
 }
 
 interface SimilarProductsResponse {
@@ -28,7 +28,7 @@ export default async function handler(
     });
   }
 
-  const { productId, k: kParam } = req.query;
+  const { productId, maxResults: maxResultsParam } = req.query;
 
   if (!productId || typeof productId !== 'string') {
     return res.status(400).json({
@@ -38,24 +38,24 @@ export default async function handler(
     });
   }
 
-  let k = 6;
-  if (kParam) {
-    const parsedK = parseInt(kParam as string, 10);
-    if (isNaN(parsedK) || parsedK < 1) {
+  let maxResults = 6;
+  if (maxResultsParam) {
+    const parsedMaxResults = parseInt(maxResultsParam as string, 10);
+    if (isNaN(parsedMaxResults) || parsedMaxResults < 1) {
       return res.status(400).json({
         base: null,
         similar: [],
-        error: 'k parameter must be a positive integer',
+        error: 'maxResults parameter must be a positive integer',
       });
     }
-    k = Math.min(parsedK, 24);
+    maxResults = Math.min(parsedMaxResults, 24);
   }
 
   try {
     const startTime = Date.now();
     const db = await getDatabase();
 
-    const similar = await db.findSimilarProducts(productId, k);
+    const similar = await db.findSimilarProducts(productId, maxResults);
     
     // Get the base product info for response
     const baseProduct = await db.getProduct(productId);

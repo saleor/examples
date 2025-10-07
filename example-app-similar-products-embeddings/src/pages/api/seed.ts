@@ -269,8 +269,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         skipped: totalSkipped,
         errors: totalErrors,
         total: stats.total,
-        published: stats.published,
-        inStock: stats.inStock
       }
     });
 

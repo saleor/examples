@@ -1,13 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getDatabase } from '@/lib/file-database';
-
-interface DatabaseStats {
-  total: number;
-  published: number;
-  inStock: number;
-  lastUpdate: string | null;
-}
+import { getDatabase, DatabaseStats } from '@/lib/file-database';
 
 interface StatsResponse extends DatabaseStats {
   error?: string;
@@ -20,8 +13,6 @@ export default async function handler(
   if (req.method !== 'GET') {
     return res.status(405).json({
       total: 0,
-      published: 0,
-      inStock: 0,
       lastUpdate: null,
       error: 'Method not allowed',
     });
@@ -37,8 +28,6 @@ export default async function handler(
     
     return res.status(500).json({
       total: 0,
-      published: 0,
-      inStock: 0,
       lastUpdate: null,
       error: 'Internal server error',
     });

@@ -52,13 +52,10 @@ export interface SimilarProduct {
  * 
  * WHAT IT TRACKS:
  * - Total products with embeddings
- * - Business metrics (published, in stock)
  * - Freshness indicator (last update time)
  */
 export interface DatabaseStats {
   total: number;         // Total products in index
-  published: number;     // Products visible to customers
-  inStock: number;       // Products available for purchase
   lastUpdate: string | null;  // Most recent embedding update
 }
 
@@ -270,7 +267,7 @@ export class Database {
    * 1. Get the target product's embedding vector
    * 2. Compare it to every other product using cosine similarity
    * 3. Sort results by similarity score (highest first)
-   * 4. Return top K most similar products
+   * 4. Return top maxResults most similar products
    * 
    * PERFORMANCE NOTE:
    * This is O(n) - we compare against every product.
@@ -278,12 +275,12 @@ export class Database {
    * 
    * PARAMETERS:
    * - productId: The product to find similar items for
-   * - k: How many similar products to return (default: 6)
+   * - maxResults: How many similar products to return (default: 6)
    * 
    * RETURNS:
    * Array of similar products with similarity scores, sorted by relevance.
    */
-  async findSimilarProducts(productId: string, k: number = 6): Promise<SimilarProduct[]> {
+  async findSimilarProducts(productId: string, maxResults: number = 6): Promise<SimilarProduct[]> {
     // Step 1: Get the base product we're comparing against
     const baseProduct = this.data[productId];
     if (!baseProduct) {
@@ -308,10 +305,10 @@ export class Database {
       }
     }
 
-    // Step 3: Sort by similarity (highest first) and return top K
+    // Step 3: Sort by similarity (highest first) and return top maxResults
     return similarities
       .sort((a, b) => b.score - a.score) // Descending order
-      .slice(0, k); // Take only top K results
+      .slice(0, maxResults); // Take only top maxResults results
   }
 
   /**
@@ -323,16 +320,10 @@ export class Database {
    * 
    * METRICS:
    * - total: How many products have embeddings
-   * - published: How many are visible to customers
-   * - inStock: How many are available for purchase
    * - lastUpdate: When we last updated any embedding
    */
   async getStats(): Promise<DatabaseStats> {
     const products = Object.values(this.data);
-    
-    // Count products by business status
-    const published = products.filter(p => p.isPublished).length;
-    const inStock = products.filter(p => p.inStock).length;
     
     // Find most recent update timestamp
     let lastUpdate: string | null = null;
@@ -344,8 +335,6 @@ export class Database {
 
     return {
       total: products.length,
-      published,
-      inStock,
       lastUpdate,
     };
   }

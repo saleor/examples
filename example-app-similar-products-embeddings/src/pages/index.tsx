@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 
 interface DatabaseStats {
   total: number;
-  published: number;
-  inStock: number;
   lastUpdate: string | null;
 }
 
@@ -182,7 +180,7 @@ const SimilarProductsApp: NextPage = () => {
       setTestLoading(true);
 
       const response = await fetch(
-        `/api/similar?productId=${encodeURIComponent(selectedProduct)}&k=6`
+        `/api/similar?productId=${encodeURIComponent(selectedProduct)}&maxResults=6`
       );
       const data = await response.json();
 
@@ -407,8 +405,8 @@ const SimilarProductsApp: NextPage = () => {
               • <code>productId</code> (required): The product ID to find similar products for
             </Text>
             <Text size={6} display="block">
-              • <code>k</code> (optional): Number of similar products to return (default: 6, max:
-              24)
+              • <code>maxResults</code> (optional): Number of similar products to return (default:
+              6, max: 24)
             </Text>
           </Box>
           <Text size={6} marginBottom={2} marginLeft={2} display="block">
@@ -416,7 +414,7 @@ const SimilarProductsApp: NextPage = () => {
           </Text>
           <Box padding={3} backgroundColor="default2" borderRadius={2} marginLeft={2}>
             <Text size={6} display="block" style={{ fontFamily: "mono" }}>
-              /api/similar?productId=UHJvZHVjdDo3Mg==&k=6
+              /api/similar?productId=UHJvZHVjdDo3Mg==&maxResults=6
             </Text>
           </Box>
         </Box>
