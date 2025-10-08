@@ -1,0 +1,76 @@
+{
+  "name": "saleor-app-template",
+  "version": "1.0.0",
+  "private": true,
+  "license": "(BSD-3-Clause AND CC-BY-4.0)",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_config_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
+    "test": "vitest",
+    "check-types": "tsc --noEmit",
+    "generate": "pnpm run /generate:.*/",
+    "generate:app-graphql-types": "graphql-codegen",
+    "generate:app-webhooks-types": "tsx ./scripts/generate-app-webhooks-types.ts",
+    "seed": "tsx ./scripts/seed-embeddings.ts"
+  },
+  "config": {
+    "saleor": {
+      "schemaVersion": "3.21"
+    }
+  },
+  "engines": {
+    "npm": ">=10.0.0 <11.0.0",
+    "node": ">=22.0.0 <23.0.0",
+    "pnpm": ">=10.0.0 <11.0.0"
+  },
+  "dependencies": {
+    "@saleor/app-sdk": "1.3.0",
+    "@saleor/macaw-ui": "1.3.1",
+    "@urql/exchange-auth": "^1.0.0",
+    "next": "15.1.7",
+    "openai": "^5.18.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "urql": "^4.0.2"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@graphql-codegen/add": "3.2.0",
+    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/introspection": "3.0.1",
+    "@graphql-codegen/schema-ast": "^3.0.1",
+    "@graphql-codegen/typed-document-node": "4.0.1",
+    "@graphql-codegen/typescript": "3.0.4",
+    "@graphql-codegen/typescript-operations": "3.0.4",
+    "@graphql-codegen/typescript-urql": "^3.7.3",
+    "@graphql-codegen/urql-introspection": "2.2.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@saleor/eslint-plugin-saleor-app": "^0.1.2",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@vitejs/plugin-react": "4.2.1",
+    "eslint": "8.31.0",
+    "eslint-config-next": "13.1.2",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
+    "jsdom": "^20.0.3",
+    "json-schema-to-typescript": "^15.0.4",
+    "prettier": "^2.8.2",
+    "tsx": "4.20.3",
+    "typescript": "5.0.4",
+    "vite": "5.2.10",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "1.5.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,css,md,json}": "prettier --write"
+  }
+}

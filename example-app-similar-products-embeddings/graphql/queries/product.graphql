@@ -1,0 +1,42 @@
+query ProductTimestamps($id: ID) {
+    product(id: $id) {
+        created
+        updatedAt
+    }
+}
+
+query ProductForEmbedding($id: ID!) {
+    product(id: $id) {
+        id
+        slug
+        name
+        description
+        productType {
+            name
+        }
+        category {
+            name
+        }
+        attributes {
+            attribute {
+                name
+            }
+            values {
+                name
+            }
+        }
+        thumbnail(size: 256) {
+            url
+        }
+        channelListings {
+            isPublished
+            availableForPurchase
+            channel {
+                slug
+            }
+        }
+        variants {
+            quantityAvailable
+        }
+    }
+}
