@@ -1,0 +1,16 @@
+mutation AppProblemCreate($input: AppProblemCreateInput!) {
+  appProblemCreate(input: $input) {
+    appProblem {
+      id
+      message
+      key
+      count
+      isCritical
+    }
+    errors {
+      field
+      message
+      code
+    }
+  }
+}

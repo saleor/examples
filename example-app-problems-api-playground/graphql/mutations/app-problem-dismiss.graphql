@@ -1,0 +1,9 @@
+mutation AppProblemDismiss($input: AppProblemDismissInput!) {
+  appProblemDismiss(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
