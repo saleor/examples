@@ -9,7 +9,9 @@
     "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
     "generate": "graphql-codegen",
     "start": "next start",
-    "test": "vitest"
+    "test": "vitest",
+    "postinstall": "pnpm dlx @socketsecurity/socket-patch apply --silent --ecosystems npm",
+    "dependencies": "pnpm dlx @socketsecurity/socket-patch apply --silent --ecosystems npm"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
