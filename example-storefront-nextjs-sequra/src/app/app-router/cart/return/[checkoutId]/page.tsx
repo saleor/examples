@@ -2,12 +2,11 @@ import { CheckoutCompleteDocument } from "@/generated/graphql";
 import { executeGraphQL } from "@/lib/common";
 import { redirect } from "next/navigation";
 
-export default async function CartReturnPage({
-	params,
-}: {
-	params: { checkoutId: string };
-	searchParams: { sqProductCode: string };
+export default async function CartReturnPage(props: {
+	params: Promise<{ checkoutId: string }>;
+	searchParams: Promise<{ sqProductCode: string }>;
 }) {
+	const params = await props.params;
 	const checkoutCompleteResult = await executeGraphQL({
 		query: CheckoutCompleteDocument,
 		variables: {

@@ -38,7 +38,7 @@ export default async function Page() {
 			throw new Error("Failed to create checkout", { cause: response.checkoutCreate?.errors });
 		}
 
-		cookies().set("checkoutId", response.checkoutCreate.checkout.id);
+		(await cookies()).set("checkoutId", response.checkoutCreate.checkout.id);
 		redirect("/app-router/cart");
 	}
 

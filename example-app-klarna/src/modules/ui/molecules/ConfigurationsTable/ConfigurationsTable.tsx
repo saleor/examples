@@ -1,4 +1,4 @@
-import { Text, EditIcon } from "@saleor/macaw-ui/next";
+import { Box, Text, EditIcon } from "@saleor/macaw-ui/next";
 import Link from "next/link";
 import { Tr, Td, Table, Thead, Th, Tbody } from "../../atoms/Table/Table";
 import { ConfigurationSummary } from "../ConfigurationSummary/ConfigurationSummary";
@@ -17,19 +17,12 @@ const ConfigurationsTableRow = ({ item }: { item: PaymentAppConfigUserVisible[nu
         <ConfigurationSummary config={item} />
       </Td>
       <Td className={tableStyles.actionsColumnTd}>
-        <Link href={`/configurations/edit/${item.configurationId}`} passHref legacyBehavior>
-          <Text
-            as="a"
-            size="medium"
-            color="textNeutralSubdued"
-            textDecoration="none"
-            display="inline-flex"
-            alignItems="center"
-          >
+        <Box as={Link} href={`/configurations/edit/${item.configurationId}`} textDecoration="none">
+          <Text size="medium" color="textNeutralSubdued" display="inline-flex" alignItems="center">
             <EditIcon size="small" />
             Edit
           </Text>
-        </Link>
+        </Box>
       </Td>
     </Tr>
   );

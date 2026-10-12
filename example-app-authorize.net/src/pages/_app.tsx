@@ -3,7 +3,7 @@ import "@saleor/macaw-ui/next/style";
 
 import { AppBridgeProvider } from "@saleor/app-sdk/app-bridge";
 import { RoutePropagator } from "@saleor/app-sdk/app-bridge/next";
-import { ThemeProvider } from "@saleor/macaw-ui/next";
+import { ThemeProvider } from "@saleor/macaw-ui/next/theme";
 import { type AppProps } from "next/app";
 
 import { ThemeSynchronizer } from "../modules/ui/theme-synchronizer";

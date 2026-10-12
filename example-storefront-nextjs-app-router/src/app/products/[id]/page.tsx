@@ -22,7 +22,8 @@ export async function generateStaticParams() {
 	return paths;
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+	const params = await props.params;
 	const { product } = await executeGraphQL({
 		query: ProductDocument,
 		variables: {

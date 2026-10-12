@@ -19,11 +19,9 @@ const NotEmpty = ({ configurations }: { configurations: PaymentAppConfigUserVisi
   return (
     <RoundedBoxWithFooter
       footer={
-        <Link href={"/configurations/add"} passHref legacyBehavior>
-          <Button as="a" size="large" variant="primary">
-            Add new configuration
-          </Button>
-        </Link>
+        <Button as={Link} href={"/configurations/add"} size="large" variant="primary">
+          Add new configuration
+        </Button>
       }
     >
       <ConfigurationsTable configurations={configurations} />
@@ -42,11 +40,9 @@ const Empty = () => {
           This means payments are not processed by Klarna.
         </Text>
       </Box>
-      <Link href={"/configurations/add"} passHref legacyBehavior>
-        <Button as="a" size="large" variant="primary">
-          Add new configuration
-        </Button>
-      </Link>
+      <Button as={Link} href={"/configurations/add"} size="large" variant="primary">
+        Add new configuration
+      </Button>
     </RoundedActionBox>
   );
 };

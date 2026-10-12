@@ -4,7 +4,8 @@ import { getCheckoutFromCookiesOrRedirect } from "@/lib/app-router";
 import { executeGraphQL } from "@/lib/common";
 import { unpackPromise } from "@/lib/unpack";
 
-export default async function SequraFormPage({ params }: { params: { sequraOrderId: string } }) {
+export default async function SequraFormPage(props: { params: Promise<{ sequraOrderId: string }> }) {
+	const params = await props.params;
 	const checkout = await getCheckoutFromCookiesOrRedirect();
 
 	const [orderFormDataError, orderFormData] = await unpackPromise(

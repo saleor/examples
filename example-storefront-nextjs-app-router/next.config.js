@@ -6,7 +6,7 @@ try {
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: url ? [url.hostname] : [],
+		remotePatterns: url ? [{ hostname: url.hostname }] : [],
 	},
 };
 

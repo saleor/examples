@@ -1,4 +1,4 @@
-import { sprinkles } from "@saleor/macaw-ui/next";
+import { sprinkles } from "@saleor/macaw-ui/next/theme";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const roundedActionBoxRecipe = recipe({

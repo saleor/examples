@@ -1,5 +1,5 @@
 import { type ThemeType, useAppBridge } from "@saleor/app-sdk/app-bridge";
-import { type DefaultTheme, useTheme } from "@saleor/macaw-ui/next";
+import { type DefaultTheme, useTheme } from "@saleor/macaw-ui/next/theme";
 import { memo, useEffect } from "react";
 
 const mapAppBridgeToMacawTheme: Record<ThemeType, DefaultTheme> = {

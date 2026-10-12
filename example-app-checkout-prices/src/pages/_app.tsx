@@ -9,7 +9,7 @@ import { AppProps } from "next/app";
 import { ThemeSynchronizer } from "../lib/theme-synchronizer";
 import { NoSSRWrapper } from "../lib/no-ssr-wrapper";
 import { GraphQLProvider } from "../providers/GraphQLProvider";
-import { ThemeProvider } from "@saleor/macaw-ui/next";
+import { ThemeProvider } from "@saleor/macaw-ui/next/theme";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

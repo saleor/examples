@@ -56,7 +56,7 @@ export default async function Page() {
 			}
 		}
 
-		cookies().set("checkoutId", createCheckoutResponse.checkoutCreate.checkout.id);
+		(await cookies()).set("checkoutId", createCheckoutResponse.checkoutCreate.checkout.id);
 		redirect("/app-router/cart");
 	}
 
