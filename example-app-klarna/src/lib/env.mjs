@@ -11,8 +11,7 @@ export const env = createEnv({
   server: {
     ENV: z.enum(["development", "test", "staging", "production"]).default("development"),
     SECRET_KEY: z.string().min(8, { message: "Cannot be too short" }),
-    SENTRY_DSN: z.string().min(1).optional(),
-    APL: z.enum(["saleor-cloud", "upstash", "file"]).optional().default("file"),
+    APL: z.enum(["upstash", "file"]).optional().default("file"),
     CI: z.coerce.boolean().optional().default(false),
     APP_DEBUG: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
@@ -22,8 +21,6 @@ export const env = createEnv({
     PORT: z.coerce.number().optional(),
     UPSTASH_URL: z.string().optional(),
     UPSTASH_TOKEN: z.string().optional(),
-    REST_APL_ENDPOINT: z.string().optional(),
-    REST_APL_TOKEN: z.string().optional(),
     APP_API_BASE_URL: z.string().optional(),
     APP_IFRAME_BASE_URL: z.string().optional(),
   },
@@ -33,9 +30,7 @@ export const env = createEnv({
    *
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
-  client: {
-    NEXT_PUBLIC_SENTRY_DSN: z.optional(z.string().min(1)),
-  },
+  client: {},
 
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -45,10 +40,8 @@ export const env = createEnv({
    */
   runtimeEnv: {
     ENV: process.env.ENV,
-    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
     SECRET_KEY: process.env.SECRET_KEY,
-    SENTRY_DSN: process.env.SENTRY_DSN,
     APL: process.env.APL,
     CI: process.env.CI,
     APP_DEBUG: process.env.APP_DEBUG,
@@ -56,8 +49,6 @@ export const env = createEnv({
     PORT: process.env.PORT,
     UPSTASH_URL: process.env.UPSTASH_URL,
     UPSTASH_TOKEN: process.env.UPSTASH_TOKEN,
-    REST_APL_ENDPOINT: process.env.REST_APL_ENDPOINT,
-    REST_APL_TOKEN: process.env.REST_APL_TOKEN,
     APP_API_BASE_URL: process.env.APP_API_BASE_URL,
     APP_IFRAME_BASE_URL: process.env.APP_IFRAME_BASE_URL,
   },

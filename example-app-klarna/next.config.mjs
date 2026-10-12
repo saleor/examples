@@ -4,7 +4,6 @@
 
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
-import { withSentryConfig } from "@sentry/nextjs";
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -22,10 +21,4 @@ const config = {
   },
 };
 
-const isSentryEnabled = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
-
-const vanillaExtractConfig = withVanillaExtract(config);
-
-export default isSentryEnabled
-  ? withSentryConfig(vanillaExtractConfig, { silent: true }, { hideSourceMaps: true })
-  : vanillaExtractConfig;
+export default withVanillaExtract(config);

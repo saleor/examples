@@ -1,5 +1,4 @@
 import * as trpcNext from "@trpc/server/adapters/next";
-import * as Sentry from "@sentry/nextjs";
 import { appRouter } from "../../../modules/trpc/trpc-app-router";
 import { createTrpcContext } from "../../../modules/trpc/trpc-context";
 import { logger, redactError } from "@/lib/logger";
@@ -20,6 +19,5 @@ export default trpcNext.createNextApiHandler({
       return logger.error({ input, path, error, type, ctx }, "TRPC failed");
     }
     logger.error({ path, error: redactError(error), type }, "TRPC failed");
-    Sentry.captureException(error);
   },
 });

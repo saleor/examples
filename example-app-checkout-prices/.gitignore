@@ -45,7 +45,4 @@ yarn-error.log*
 # GraphQL auto-generated
 generated/
 
-# Sentry
-.sentryclirc
-
 .env

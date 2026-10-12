@@ -43,9 +43,6 @@ yarn-error.log*
 
 .idea
 
-# Sentry
-.sentryclirc
-
 .env
 
 embeddings.json
