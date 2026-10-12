@@ -1,48 +1,20 @@
-import { AuthConfig, authExchange } from "@urql/exchange-auth";
-import {
-  cacheExchange,
-  createClient as urqlCreateClient,
-  dedupExchange,
-  fetchExchange,
-} from "urql";
+import { authExchange } from "@urql/exchange-auth";
+import { cacheExchange, createClient as urqlCreateClient, fetchExchange } from "urql";
 
-interface IAuthState {
-  token: string;
-}
-
-export const createClient = (url: string, getAuth: AuthConfig<IAuthState>["getAuth"]) =>
+export const createClient = (url: string, token?: string) =>
   urqlCreateClient({
     url,
     exchanges: [
-      dedupExchange,
       cacheExchange,
-      authExchange<IAuthState>({
-        addAuthToOperation: ({ authState, operation }) => {
-          if (!authState || !authState?.token) {
-            return operation;
-          }
-
-          const fetchOptions =
-            typeof operation.context.fetchOptions === "function"
-              ? operation.context.fetchOptions()
-              : operation.context.fetchOptions || {};
-
-          return {
-            ...operation,
-            context: {
-              ...operation.context,
-              fetchOptions: {
-                ...fetchOptions,
-                headers: {
-                  ...fetchOptions.headers,
-                  "Authorization-Bearer": authState.token,
-                },
-              },
-            },
-          };
+      authExchange(async (utils) => ({
+        addAuthToOperation(operation) {
+          return token ? utils.appendHeaders(operation, { "Authorization-Bearer": token }) : operation;
         },
-        getAuth,
-      }),
+        didAuthError(error) {
+          return error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN");
+        },
+        async refreshAuth() {},
+      })),
       fetchExchange,
     ],
   });
