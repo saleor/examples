@@ -1,5 +1,5 @@
 import {
-  NextWebhookApiHandler,
+  NextJsWebhookHandler,
   SaleorAsyncWebhook,
 } from "@saleor/app-sdk/handlers/next";
 import { gql } from "urql";
@@ -79,7 +79,7 @@ export const orderCreatedWebhook =
     isActive: false,
   });
 
-const handler: NextWebhookApiHandler<
+const handler: NextJsWebhookHandler<
   OrderCreatedWebhookPayloadFragment
 > = async (req, res, context) => {
   const { payload, authData } = context;

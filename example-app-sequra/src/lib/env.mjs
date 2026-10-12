@@ -11,7 +11,7 @@ export const env = createEnv({
   server: {
     ENV: z.enum(["development", "test", "staging", "production"]).default("development"),
     SECRET_KEY: z.string().min(8, { message: "Cannot be too short" }),
-    APL: z.enum(["saleor-cloud", "upstash", "file", "vercel-kv"]).optional().default("file"),
+    APL: z.enum(["upstash", "file", "vercel-kv"]).optional().default("file"),
     CI: z.coerce.boolean().optional().default(false),
     APP_DEBUG: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
@@ -21,8 +21,6 @@ export const env = createEnv({
     PORT: z.coerce.number().optional(),
     UPSTASH_URL: z.string().optional(),
     UPSTASH_TOKEN: z.string().optional(),
-    REST_APL_ENDPOINT: z.string().optional(),
-    REST_APL_TOKEN: z.string().optional(),
     APP_API_BASE_URL: z.string().describe("The URL of the app"),
     APP_IFRAME_BASE_URL: z.string().optional(),
   },
@@ -51,8 +49,6 @@ export const env = createEnv({
     PORT: process.env.PORT,
     UPSTASH_URL: process.env.UPSTASH_URL,
     UPSTASH_TOKEN: process.env.UPSTASH_TOKEN,
-    REST_APL_ENDPOINT: process.env.REST_APL_ENDPOINT,
-    REST_APL_TOKEN: process.env.REST_APL_TOKEN,
     APP_API_BASE_URL: process.env.APP_API_BASE_URL,
     APP_IFRAME_BASE_URL: process.env.APP_IFRAME_BASE_URL,
   },

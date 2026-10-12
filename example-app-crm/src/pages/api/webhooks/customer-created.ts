@@ -1,4 +1,4 @@
-import { NextWebhookApiHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { NextJsWebhookHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
 import { wrapWithLoggerContext } from "../../../logger-context";
 import { createGraphQLClient } from "../../../lib/create-graphql-client";
 import {
@@ -15,7 +15,7 @@ import { saleorApp } from "../../../saleor-app";
 export const customerCreatedWebhook = new SaleorAsyncWebhook<CustomerCreatedPayloadFragment>({
   name: "Customer Created in Saleor",
   webhookPath: "api/webhooks/customer-created",
-  asyncEvent: "CUSTOMER_CREATED",
+  event: "CUSTOMER_CREATED",
   apl: saleorApp.apl,
   query: CustomerCreatedDocument,
 });
@@ -23,7 +23,7 @@ export const customerCreatedWebhook = new SaleorAsyncWebhook<CustomerCreatedPayl
 const logger = createLogger("CustomerCreatedAsyncWebhook");
 
 // todo - fetch metadata with event
-export const customerCreatedHandler: NextWebhookApiHandler<CustomerCreatedPayloadFragment> = async (
+export const customerCreatedHandler: NextJsWebhookHandler<CustomerCreatedPayloadFragment> = async (
   req,
   res,
   context,

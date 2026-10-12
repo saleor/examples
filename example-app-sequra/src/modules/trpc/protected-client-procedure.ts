@@ -1,4 +1,4 @@
-import { verifyJWT } from "@saleor/app-sdk/verify-jwt";
+import { verifyJWT } from "@saleor/app-sdk/auth";
 import { logger, redactLogValue } from "../../lib/logger";
 import { REQUIRED_SALEOR_PERMISSIONS } from "../jwt/consts";
 import { middleware, procedure } from "./trpc-server";

@@ -1,4 +1,4 @@
-import { NextWebhookApiHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { NextJsWebhookHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
 import { saleorApp } from "../../../saleor-app";
 
 import { wrapWithLoggerContext } from "../../../logger-context";
@@ -17,14 +17,14 @@ export const customerMetadataUpdatedWebhook =
   new SaleorAsyncWebhook<CustomerUpdatedPayloadFragment>({
     name: "Customer updated in Saleor",
     webhookPath: "api/webhooks/customer-updated",
-    asyncEvent: "CUSTOMER_UPDATED",
+    event: "CUSTOMER_UPDATED",
     apl: saleorApp.apl,
     query: CustomerUpdatedDocument,
   });
 
 const logger = createLogger("CustomerUpdatedAsyncWebhook");
 
-const handler: NextWebhookApiHandler<CustomerUpdatedPayloadFragment> = async (
+const handler: NextJsWebhookHandler<CustomerUpdatedPayloadFragment> = async (
   req,
   res,
   context,

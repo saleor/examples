@@ -6,6 +6,8 @@ import {
 } from "@saleor/app-sdk/settings-manager";
 import { type Client } from "urql";
 import {
+  DeleteAppMetadataDocument,
+  DeletePublicMetadataDocument,
   FetchAppDetailsDocument,
   type FetchAppDetailsQuery,
   UpdateAppMetadataDocument,
@@ -93,6 +95,26 @@ export async function mutatePublicMetadata(client: Client, metadata: MetadataEnt
   );
 }
 
+async function deleteMetadataKeys(
+  client: Client,
+  document: typeof DeleteAppMetadataDocument | typeof DeletePublicMetadataDocument,
+  keys: string[],
+) {
+  const appId = await getAppId(client);
+
+  const { error } = await client.mutation(document, { id: appId, keys }).toPromise();
+
+  if (error) {
+    throw new Error(`Mutation error: ${error.message}`);
+  }
+}
+
+export const deletePrivateMetadata = (client: Client, keys: string[]) =>
+  deleteMetadataKeys(client, DeleteAppMetadataDocument, keys);
+
+export const deletePublicMetadata = (client: Client, keys: string[]) =>
+  deleteMetadataKeys(client, DeletePublicMetadataDocument, keys);
+
 // branded types are used to prevent using wrong manager for wrong metadata
 type Brand<K, T> = K & { __brand: T };
 export type BrandedEncryptedMetadataManager = Brand<
@@ -110,6 +132,7 @@ export const createPrivateSettingsManager = (client: Client) => {
     encryptionKey: env.SECRET_KEY,
     fetchMetadata: () => fetchAllMetadata(client),
     mutateMetadata: (metadata) => mutatePrivateMetadata(client, metadata),
+    deleteMetadata: (keys) => deletePrivateMetadata(client, keys),
   }) as BrandedEncryptedMetadataManager;
 };
 
@@ -117,6 +140,7 @@ export const createPublicSettingsManager = (client: Client) => {
   return new MetadataManager({
     fetchMetadata: () => fetchAllMetadata(client),
     mutateMetadata: (metadata) => mutatePublicMetadata(client, metadata),
+    deleteMetadata: (keys) => deletePublicMetadata(client, keys),
   }) as BrandedMetadataManager;
 };
 
@@ -128,6 +152,7 @@ export const createWebhookPrivateSettingsManager = (
     encryptionKey: env.SECRET_KEY,
     fetchMetadata: () => Promise.resolve(data),
     mutateMetadata: onUpdate ?? (() => Promise.resolve([])),
+    deleteMetadata: () => Promise.resolve(),
   }) as BrandedEncryptedMetadataManager;
 };
 
@@ -138,5 +163,6 @@ export const createWebhookPublicSettingsManager = (
   return new MetadataManager({
     fetchMetadata: () => Promise.resolve(data),
     mutateMetadata: onUpdate ?? (() => Promise.resolve([])),
+    deleteMetadata: () => Promise.resolve(),
   }) as BrandedMetadataManager;
 };

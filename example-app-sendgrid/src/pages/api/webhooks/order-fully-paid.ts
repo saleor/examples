@@ -1,4 +1,4 @@
-import { NextWebhookApiHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { NextJsWebhookHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
 import { gql } from "urql";
 import { saleorApp } from "../../../saleor-app";
 import {
@@ -31,14 +31,14 @@ const OrderFullyPaidGraphqlSubscription = gql`
 export const orderFullyPaidWebhook = new SaleorAsyncWebhook<OrderFullyPaidWebhookPayloadFragment>({
   name: "Order Fully Paid in Saleor",
   webhookPath: "api/webhooks/order-fully-paid",
-  asyncEvent: "ORDER_FULLY_PAID",
+  event: "ORDER_FULLY_PAID",
   apl: saleorApp.apl,
-  subscriptionQueryAst: OrderFullyPaidGraphqlSubscription,
+  query: OrderFullyPaidGraphqlSubscription,
 });
 
 const logger = createLogger(orderFullyPaidWebhook.webhookPath);
 
-const handler: NextWebhookApiHandler<OrderFullyPaidWebhookPayloadFragment> = async (
+const handler: NextJsWebhookHandler<OrderFullyPaidWebhookPayloadFragment> = async (
   req,
   res,
   context,

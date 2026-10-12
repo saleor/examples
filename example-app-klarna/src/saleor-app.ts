@@ -1,5 +1,6 @@
 import { SaleorApp } from "@saleor/app-sdk/saleor-app";
-import { FileAPL, UpstashAPL, SaleorCloudAPL } from "@saleor/app-sdk/APL";
+import { FileAPL } from "@saleor/app-sdk/APL/file";
+import { UpstashAPL } from "@saleor/app-sdk/APL/upstash";
 import { invariant } from "./lib/invariant";
 import { env } from "./lib/env.mjs";
 import { isTest } from "./lib/isEnv";
@@ -25,14 +26,6 @@ const getApl = async () => {
         restURL: env.UPSTASH_URL,
         restToken: env.UPSTASH_TOKEN,
       });
-    case "saleor-cloud": {
-      invariant(env.REST_APL_ENDPOINT, "Missing REST_APL_ENDPOINT env variable!");
-      invariant(env.REST_APL_TOKEN, "Missing REST_APL_TOKEN env variable!");
-      return new SaleorCloudAPL({
-        resourceUrl: env.REST_APL_ENDPOINT,
-        token: env.REST_APL_TOKEN,
-      });
-    }
     default:
       return new FileAPL();
   }

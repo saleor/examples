@@ -1,4 +1,4 @@
-import { NextWebhookApiHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { NextJsWebhookHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
 import { saleorApp } from "../../../saleor-app";
 import { sendEventMessages } from "../../../modules/event-handlers/send-event-messages";
 import { NotifySubscriptionPayload, notifyEventMapping } from "../../../lib/notify-event-types";
@@ -13,14 +13,14 @@ import { createGraphQLClient } from "../../../lib/create-graphql-client";
 export const notifyWebhook = new SaleorAsyncWebhook<NotifySubscriptionPayload>({
   name: "notify",
   webhookPath: "api/webhooks/notify",
-  asyncEvent: "NOTIFY_USER",
+  event: "NOTIFY_USER",
   apl: saleorApp.apl,
   query: "{}", // We are using the default payload instead of subscription
 });
 
 const logger = createLogger(notifyWebhook.webhookPath);
 
-const handler: NextWebhookApiHandler<NotifySubscriptionPayload> = async (req, res, context) => {
+const handler: NextJsWebhookHandler<NotifySubscriptionPayload> = async (req, res, context) => {
   logger.debug("Webhook received");
 
   const { payload, authData } = context;

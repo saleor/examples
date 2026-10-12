@@ -1,7 +1,7 @@
 import { TRPCClientError, httpBatchLink, loggerLink, type TRPCClientErrorLike } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 
-import { SALEOR_API_URL_HEADER, SALEOR_AUTHORIZATION_BEARER_HEADER } from "@saleor/app-sdk/const";
+import { SALEOR_API_URL_HEADER, SALEOR_AUTHORIZATION_BEARER_HEADER } from "@saleor/app-sdk/headers";
 import { useErrorModalStore } from "../ui/organisms/GlobalErrorModal/state";
 import { type AppRouter } from "./trpc-app-router";
 import { getErrorHandler } from "./utils";

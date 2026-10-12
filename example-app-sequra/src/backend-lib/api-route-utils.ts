@@ -1,4 +1,4 @@
-import { type NextWebhookApiHandler } from "@saleor/app-sdk/handlers/next";
+import { type NextJsWebhookHandler } from "@saleor/app-sdk/handlers/next";
 import type { ValidateFunction } from "ajv";
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { type z } from "zod";
@@ -54,7 +54,7 @@ export function getSyncWebhookHandler<TPayload, TResult, TSchema extends Validat
   ) => Promise<TResult>,
   ResponseSchema: TSchema,
   errorMapper: (payload: TPayload, errorResponse: ErrorResponse) => TResult & {},
-): NextWebhookApiHandler<TPayload> {
+): NextJsWebhookHandler<TPayload> {
   return async (_req, res: NextApiResponse<Error | TResult>, ctx) => {
     const logger = createLogger(
       {

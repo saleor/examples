@@ -1,4 +1,4 @@
-import { NextWebhookApiHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { NextJsWebhookHandler, SaleorAsyncWebhook } from "@saleor/app-sdk/handlers/next";
 import { gql } from "urql";
 import { saleorApp } from "../../../saleor-app";
 import { GiftCardSentWebhookPayloadFragment } from "../../../../generated/graphql";
@@ -61,14 +61,14 @@ const GiftCardSentGraphqlSubscription = gql`
 export const giftCardSentWebhook = new SaleorAsyncWebhook<GiftCardSentWebhookPayloadFragment>({
   name: "Gift card sent in Saleor",
   webhookPath: "api/webhooks/gift-card-sent",
-  asyncEvent: "GIFT_CARD_SENT",
+  event: "GIFT_CARD_SENT",
   apl: saleorApp.apl,
-  subscriptionQueryAst: GiftCardSentGraphqlSubscription,
+  query: GiftCardSentGraphqlSubscription,
 });
 
 const logger = createLogger(giftCardSentWebhook.webhookPath);
 
-const handler: NextWebhookApiHandler<GiftCardSentWebhookPayloadFragment> = async (
+const handler: NextJsWebhookHandler<GiftCardSentWebhookPayloadFragment> = async (
   req,
   res,
   context,
