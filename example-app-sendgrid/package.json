@@ -25,7 +25,6 @@
     "@trpc/server": "10.45.3",
     "@urql/exchange-auth": "2.1.6",
     "@vitejs/plugin-react": "4.3.1",
-    "dotenv": "16.3.1",
     "graphql": "16.7.1",
     "graphql-tag": "2.12.6",
     "handlebars": "^4.7.7",
@@ -63,7 +62,6 @@
     "@types/semver": "7.5.0",
     "@types/react": "18.2.5",
     "@types/react-dom": "18.2.5",
-    "tsx": "4.7.1",
     "typescript": "5.4.5"
   },
   "private": true,

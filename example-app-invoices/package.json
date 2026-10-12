@@ -22,7 +22,6 @@
     "@trpc/server": "10.45.3",
     "@urql/exchange-auth": "2.1.6",
     "@web-std/file": "^3.0.2",
-    "dotenv": "16.3.1",
     "graphql": "16.7.1",
     "graphql-tag": "2.12.6",
     "microinvoice": "^1.0.6",
@@ -51,10 +50,8 @@
     "@types/rimraf": "^3.0.2",
     "@types/semver": "^7.5.8",
     "@vitejs/plugin-react": "4.3.1",
-    "dotenv": "16.3.1",
     "jsdom": "^20.0.3",
     "rimraf": "^3.0.2",
-    "tsx": "4.7.1",
     "typescript": "5.4.5",
     "vite": "5.3.3",
     "vitest": "1.6.0"
