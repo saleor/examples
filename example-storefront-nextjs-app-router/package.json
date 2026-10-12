@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix --dir src",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
     "format": "prettier --write .",
     "generate": "graphql-codegen --config .graphqlrc.ts",
     "postinstall": "pnpm generate"
@@ -15,18 +15,18 @@
   "dependencies": {
     "graphql": "16.8.1",
     "graphql-tag": "2.12.6",
-    "next": "14.2.35",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "16.4.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "4.1.0",
     "@graphql-typed-document-node/core": "3.2.0",
-    "@next/env": "14.0.2",
+    "@next/env": "16.4.0",
     "@types/node": "20.9.0",
-    "@types/react": "18.2.37",
-    "@types/react-dom": "18.2.15",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "6.11.0",
     "autoprefixer": "10.4.16",
@@ -37,7 +37,7 @@
     "prettier": "3.1.0",
     "prettier-plugin-tailwindcss": "0.5.7",
     "tailwindcss": "3.3.5",
-    "typescript": "5.2.2"
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=24.0.0",
