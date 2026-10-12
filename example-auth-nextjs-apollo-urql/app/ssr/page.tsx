@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { UserCard } from "@/components/UserCard";
 import { createSaleorAuthClient } from "@saleor/auth-sdk";
-import { getNextServerCookiesStorage } from "@saleor/auth-sdk/next/server";
+import { getNextServerCookiesStorageAsync } from "@saleor/auth-sdk/next/server";
 import { saleorApiUrl } from "@/lib";
 
-const getServerAuthClient = () => {
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
+const getServerAuthClient = async () => {
+  const nextServerCookiesStorage = await getNextServerCookiesStorageAsync();
   return createSaleorAuthClient({
     saleorApiUrl,
     refreshTokenStorage: nextServerCookiesStorage,
@@ -29,7 +29,7 @@ query CurrentUser {
 `;
 
 export default async function PageSSR() {
-  const { data } = await getServerAuthClient()
+  const { data } = await (await getServerAuthClient())
     .fetchWithAuth(saleorApiUrl, {
       method: "POST",
       headers: {
@@ -52,7 +52,7 @@ export default async function PageSSR() {
             action={async () => {
               "use server";
 
-              getServerAuthClient().signOut();
+              (await getServerAuthClient()).signOut();
             }}
           >
             <button
@@ -78,7 +78,7 @@ export default async function PageSSR() {
                 throw new Error("Email and password are required");
               }
 
-              await getServerAuthClient().signIn(
+              await (await getServerAuthClient()).signIn(
                 {
                   email: email.toString(),
                   password: password.toString(),

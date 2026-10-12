@@ -26,7 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error) {
     const normalizedError = errorUtils.normalize(error);
     logger.error(normalizedError);
-    errorUtils.capture(normalizedError);
 
     res.status(500).json({ error: normalizedError });
   }

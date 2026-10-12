@@ -4,7 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { executeGraphQL, formatMoney } from "@/lib/common";
 
-export default async function CartSuccessPage({ params }: { params: { orderId: string } }) {
+export default async function CartSuccessPage(props: { params: Promise<{ orderId: string }> }) {
+	const params = await props.params;
 	if (!params.orderId) {
 		redirect("/app-router/");
 	}

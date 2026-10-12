@@ -42,7 +42,4 @@ yarn-error.log*
 .vscode
 .idea
 
-# Sentry
-.sentryclirc
-
 .env

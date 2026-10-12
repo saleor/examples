@@ -9,7 +9,7 @@ const getDecimalsForKlarna = (currency: string) => {
     currency,
   }).resolvedOptions();
 
-  return maximumFractionDigits;
+  return maximumFractionDigits ?? 2;
 };
 
 // Some payment methods expect the amount to be in cents (integers)

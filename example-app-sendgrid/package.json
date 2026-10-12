@@ -14,7 +14,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
     "@monaco-editor/react": "^4.4.6",
-    "@saleor/app-sdk": "0.50.1",
+    "@saleor/app-sdk": "1.16.0",
     "@saleor/macaw-ui": "1.0.0-pre.7",
     "@sendgrid/client": "^7.7.0",
     "@sendgrid/mail": "^7.7.0",
@@ -25,14 +25,13 @@
     "@trpc/server": "10.45.3",
     "@urql/exchange-auth": "2.1.6",
     "@vitejs/plugin-react": "4.3.1",
-    "dotenv": "16.3.1",
     "graphql": "16.7.1",
     "graphql-tag": "2.12.6",
     "handlebars": "^4.7.7",
     "html-to-text": "^9.0.3",
     "jsdom": "^20.0.3",
     "mjml": "4.15.3",
-    "next": "14.2.35",
+    "next": "16.4.0",
     "nodemailer": "^6.9.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -63,8 +62,7 @@
     "@types/semver": "7.5.0",
     "@types/react": "18.2.5",
     "@types/react-dom": "18.2.5",
-    "tsx": "4.7.1",
-    "typescript": "5.4.5"
+    "typescript": "5.9.3"
   },
   "private": true,
   "saleor": {

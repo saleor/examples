@@ -39,7 +39,7 @@ vi.mock("../../saleor-app", () => {
   };
 });
 
-vi.mock("@saleor/app-sdk/verify-jwt", () => {
+vi.mock("@saleor/app-sdk/auth", () => {
   return {
     verifyJWT: vi.fn().mockImplementation((async) => {}),
   };

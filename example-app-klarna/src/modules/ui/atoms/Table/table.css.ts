@@ -1,4 +1,4 @@
-import { sprinkles } from "@saleor/macaw-ui/next";
+import { sprinkles } from "@saleor/macaw-ui/next/theme";
 import { style } from "@vanilla-extract/css";
 
 export const table = style(

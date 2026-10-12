@@ -6,11 +6,8 @@ import { createClient } from "../lib/graphql";
 
 function GraphQLProvider(props: PropsWithChildren<{}>) {
   const { appBridgeState } = useAppBridge();
-  const domain = appBridgeState?.domain!;
 
-  const client = createClient(`https://${domain}/graphql/`, async () =>
-    Promise.resolve({ token: appBridgeState?.token! })
-  );
+  const client = createClient(appBridgeState?.saleorApiUrl!, appBridgeState?.token);
 
   return <Provider value={client} {...props} />;
 }

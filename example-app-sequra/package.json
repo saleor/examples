@@ -8,22 +8,22 @@
   "homepage": "https://github.com/saleor/saleor-app-payment-sequra",
   "type": "module",
   "scripts": {
-    "dev": "pnpm generate && next dev",
-    "build": "pnpm generate && next build",
+    "dev": "pnpm generate && next dev --webpack",
+    "build": "pnpm generate && next build --webpack",
     "start": "next start",
     "generate": "pnpm generate:graphql",
     "generate:graphql": "graphql-codegen",
-    "lint": "next lint --fix --dir src",
-    "lint:ci": "next lint --dir src"
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
+    "lint:ci": "eslint --ext .js,.jsx,.ts,.tsx src"
   },
   "saleor": {
     "schemaVersion": "3.16"
   },
   "dependencies": {
     "@hookform/resolvers": "3.3.1",
-    "@next/env": "13.4.19",
+    "@next/env": "16.4.0",
     "@radix-ui/react-alert-dialog": "1.0.4",
-    "@saleor/app-sdk": "0.50.0",
+    "@saleor/app-sdk": "1.16.0",
     "@saleor/macaw-ui": "0.8.0-pre.132",
     "@t3-oss/env-nextjs": "0.6.1",
     "@tanstack/react-query": "4.35.3",
@@ -48,7 +48,7 @@
     "lodash-es": "4.17.21",
     "modern-errors": "6.0.0",
     "modern-errors-serialize": "5.0.0",
-    "next": "14.2.35",
+    "next": "16.4.0",
     "pino": "8.20.0",
     "pino-pretty": "11.0.0",
     "react": "18.2.0",
@@ -85,11 +85,11 @@
     "eslint-plugin-vitest": "0.3.1",
     "prettier": "3.0.3",
     "ts-node": "10.9.2",
-    "typescript": "5.2.2"
+    "typescript": "5.9.3"
   },
   "engines": {
-    "npm": "^10.0.0",
-    "node": "^20.0.0",
+    "npm": "^11.0.0",
+    "node": "^24.0.0",
     "pnpm": "^8.14.2"
   },
   "packageManager": "pnpm@8.14.2",

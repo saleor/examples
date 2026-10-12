@@ -1,8 +1,7 @@
 import {
   createProtectedHandler,
-  ProtectedHandlerContext,
+  NextJsProtectedApiHandler,
 } from "@saleor/app-sdk/handlers/next";
-import { NextApiRequest, NextApiResponse } from "next";
 
 import { createSettingsManager } from "../../lib/metadata";
 import { saleorApp } from "../../lib/saleor-app";
@@ -15,11 +14,7 @@ interface PostRequestBody {
   data: { key: string; value: string }[];
 }
 
-export const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
-  ctx: ProtectedHandlerContext,
-) => {
+export const handler: NextJsProtectedApiHandler = async (req, res, ctx) => {
   const {
     authData: { token, saleorApiUrl, appId },
   } = ctx;

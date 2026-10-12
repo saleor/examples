@@ -28,15 +28,6 @@
     "import/no-cycle": "error",
     "import/no-default-export": "error",
 
-    // prevent default import from Sentry because it doesn't work 😬
-    "no-restricted-syntax": [
-      "error",
-      {
-        "selector": "ImportDeclaration[source.value='@sentry/nextjs'] > ImportDefaultSpecifier",
-        "message": "Use `import * as Sentry from '@sentry/nextjs';`"
-      }
-    ],
-
     // allow {} even though it's unsafe but comes handy
     "@typescript-eslint/ban-types": [
       "error",

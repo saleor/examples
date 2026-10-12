@@ -1,5 +1,7 @@
 import { SaleorApp } from "@saleor/app-sdk/saleor-app";
-import { APL, FileAPL, UpstashAPL, VercelAPL } from "@saleor/app-sdk/APL";
+import { APL } from "@saleor/app-sdk/APL";
+import { FileAPL } from "@saleor/app-sdk/APL/file";
+import { UpstashAPL } from "@saleor/app-sdk/APL/upstash";
 
 /**
  * By default auth data are stored in the `.auth-data.json` (FileAPL).
@@ -11,9 +13,6 @@ import { APL, FileAPL, UpstashAPL, VercelAPL } from "@saleor/app-sdk/APL";
 
 export let apl: APL;
 switch (process.env.APL) {
-  case "vercel":
-    apl = new VercelAPL();
-    break;
   case "upstash":
     // Require `UPSTASH_URL` and `UPSTASH_TOKEN` environment variables
     apl = new UpstashAPL();

@@ -2,7 +2,7 @@ import { useAppBridge, withAuthorization } from "@saleor/app-sdk/app-bridge";
 import {
   SALEOR_API_URL_HEADER,
   SALEOR_AUTHORIZATION_BEARER_HEADER,
-} from "@saleor/app-sdk/const";
+} from "@saleor/app-sdk/headers";
 import {
   ChangeEvent,
   ReactElement,

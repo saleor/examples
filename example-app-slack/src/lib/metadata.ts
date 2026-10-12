@@ -7,6 +7,7 @@ import { Client } from "urql";
 import {
   FetchAppDetailsDocument,
   FetchAppDetailsQuery,
+  RemovePrivateMetadataDocument,
   UpdateAppMetadataDocument,
 } from "../../generated/graphql";
 import { settingsManagerSecretKey } from "./saleor-app";
@@ -67,6 +68,20 @@ export async function mutateMetadata(
   );
 }
 
+export async function deleteMetadata(
+  client: Client,
+  appId: string,
+  keys: string[],
+) {
+  const { error } = await client
+    .mutation(RemovePrivateMetadataDocument, { id: appId, keys })
+    .toPromise();
+
+  if (error) {
+    throw new Error(`Mutation error: ${error.message}`);
+  }
+}
+
 export const createSettingsManager = (client: Client, appId: string) =>
   /*
    * EncryptedMetadataManager gives you interface to manipulate metadata and cache values in memory.
@@ -78,4 +93,5 @@ export const createSettingsManager = (client: Client, appId: string) =>
     encryptionKey: settingsManagerSecretKey,
     fetchMetadata: () => fetchAllMetadata(client),
     mutateMetadata: (metadata) => mutateMetadata(client, appId, metadata),
+    deleteMetadata: (keys) => deleteMetadata(client, appId, keys),
   });

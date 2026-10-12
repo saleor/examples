@@ -7,6 +7,7 @@ import { Client, gql } from "urql";
 import {
   FetchAppDetailsDocument,
   FetchAppDetailsQuery,
+  RemoveMetadataDocument,
   UpdateAppMetadataDocument,
 } from "../../../generated/graphql";
 
@@ -59,8 +60,7 @@ export async function fetchAllMetadata(client: SimpleGraphqlClient): Promise<Met
   return data?.app?.privateMetadata.map((md) => ({ key: md.key, value: md.value })) || [];
 }
 
-export async function mutateMetadata(client: SimpleGraphqlClient, metadata: MetadataEntry[]) {
-  // to update the metadata, ID is required
+async function fetchAppId(client: SimpleGraphqlClient) {
   const { error: idQueryError, data: idQueryData } = await client
     .query(FetchAppDetailsDocument, {})
     .toPromise();
@@ -76,6 +76,12 @@ export async function mutateMetadata(client: SimpleGraphqlClient, metadata: Meta
   if (!appId) {
     throw new Error("Could not fetch the app ID");
   }
+
+  return appId;
+}
+
+export async function mutateMetadata(client: SimpleGraphqlClient, metadata: MetadataEntry[]) {
+  const appId = await fetchAppId(client);
 
   const { error: mutationError, data: mutationData } = await client
     .mutation(UpdateAppMetadataDocument, {
@@ -96,6 +102,16 @@ export async function mutateMetadata(client: SimpleGraphqlClient, metadata: Meta
   );
 }
 
+export async function deleteMetadata(client: SimpleGraphqlClient, keys: string[]) {
+  const appId = await fetchAppId(client);
+
+  const { error } = await client.mutation(RemoveMetadataDocument, { id: appId, keys }).toPromise();
+
+  if (error) {
+    throw new Error(`Mutation error: ${error.message}`);
+  }
+}
+
 export const createSettingsManager = (client: SimpleGraphqlClient): SettingsManager => {
   /*
    * EncryptedMetadataManager gives you interface to manipulate metadata and cache values in memory.
@@ -107,5 +123,6 @@ export const createSettingsManager = (client: SimpleGraphqlClient): SettingsMana
     encryptionKey: process.env.SECRET_KEY!,
     fetchMetadata: () => fetchAllMetadata(client),
     mutateMetadata: (metadata) => mutateMetadata(client, metadata),
+    deleteMetadata: (keys) => deleteMetadata(client, keys),
   });
 };

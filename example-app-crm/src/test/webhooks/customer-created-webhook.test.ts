@@ -40,7 +40,6 @@ mailchimp_marketing.lists.addListMember = vi.fn();
 
 const mockAuthData: AuthData = {
   saleorApiUrl: "https://demo.saleor.io/graphql/",
-  domain: "demo.saleor.io",
   appId: "XYZ",
   token: "token-mocked",
 };
@@ -70,7 +69,7 @@ describe("CUSTOMER_CREATED webhook", () => {
         },
         event: "CUSTOMER_CREATED",
         baseUrl: "localhost:3000",
-        schemaVersion: 3.1,
+        schemaVersion: [3, 1],
       },
     );
 

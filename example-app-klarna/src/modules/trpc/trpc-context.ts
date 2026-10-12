@@ -1,5 +1,5 @@
 import type * as trpcNext from "@trpc/server/adapters/next";
-import { SALEOR_AUTHORIZATION_BEARER_HEADER, SALEOR_API_URL_HEADER } from "@saleor/app-sdk/const";
+import { SALEOR_AUTHORIZATION_BEARER_HEADER, SALEOR_API_URL_HEADER } from "@saleor/app-sdk/headers";
 import { type inferAsyncReturnType } from "@trpc/server";
 
 export const createTrpcContext = async ({ req }: trpcNext.CreateNextContextOptions) => {

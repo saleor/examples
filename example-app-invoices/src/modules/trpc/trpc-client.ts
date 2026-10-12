@@ -6,7 +6,7 @@ import { httpBatchLink } from "@trpc/client";
 import {
   SALEOR_API_URL_HEADER,
   SALEOR_AUTHORIZATION_BEARER_HEADER,
-} from "@saleor/app-sdk/const";
+} from "@saleor/app-sdk/headers";
 
 function getBaseUrl() {
   if (typeof window !== "undefined") return "";

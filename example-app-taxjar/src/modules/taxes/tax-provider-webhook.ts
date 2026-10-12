@@ -1,4 +1,4 @@
-import { SyncWebhookResponsesMap } from "@saleor/app-sdk/handlers/next";
+import { SyncWebhookResponsesMap } from "@saleor/app-sdk/handlers/shared";
 import { OrderConfirmedSubscriptionFragment } from "../../../generated/graphql";
 import { CalculateTaxesPayload } from "../../pages/api/webhooks/checkout-calculate-taxes";
 import { OrderCancelledPayload } from "../../pages/api/webhooks/order-cancelled";

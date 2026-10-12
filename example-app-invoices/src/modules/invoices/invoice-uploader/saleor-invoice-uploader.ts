@@ -33,7 +33,7 @@ export class SaleorInvoiceUploader implements InvoiceUploader {
     this.logger.debug({ filePath, asName }, "Will upload blob to Saleor");
 
     return readFile(filePath).then((file) => {
-      const blob = new File([file], asName, { type: "application/pdf" });
+      const blob = new File([new Uint8Array(file)], asName, { type: "application/pdf" });
 
       return this.client
         .mutation<FileUploadMutation>(fileUpload, {

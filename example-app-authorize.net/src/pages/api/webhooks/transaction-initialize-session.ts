@@ -58,7 +58,6 @@ export default transactionInitializeSessionSyncWebhook.createHandler(
       return responseBuilder.ok(response);
     } catch (error) {
       const normalizedError = errorUtils.normalize(error);
-      errorUtils.capture(normalizedError);
       logger.error(normalizedError);
 
       return responseBuilder.ok({

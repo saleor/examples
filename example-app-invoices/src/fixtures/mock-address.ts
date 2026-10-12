@@ -1,6 +1,6 @@
-import { SellerShopConfig } from "../modules/app-configuration/schema-v1/app-config-v1";
+import { SellerAddress } from "../modules/app-configuration/address";
 
-export const getMockAddress = (): SellerShopConfig["address"] => {
+export const getMockAddress = (): SellerAddress => {
   return {
     city: "Wrocław",
     cityArea: "",

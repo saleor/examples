@@ -1,6 +1,4 @@
-import * as Sentry from "@sentry/nextjs";
-
-import { type NextWebhookApiHandler } from "@saleor/app-sdk/handlers/next";
+import { type NextJsWebhookHandler } from "@saleor/app-sdk/handlers/next";
 import type { ValidateFunction } from "ajv";
 import { type NextApiResponse } from "next";
 import { createLogger, redactError } from "../lib/logger";
@@ -28,7 +26,7 @@ export function getSyncWebhookHandler<TPayload, TResult, TSchema extends Validat
   ) => Promise<TResult>,
   ResponseSchema: TSchema,
   errorMapper: (payload: TPayload, errorResponse: ErrorResponse) => TResult & {},
-): NextWebhookApiHandler<TPayload> {
+): NextJsWebhookHandler<TPayload> {
   return async (_req, res: NextApiResponse<Error | TResult>, ctx) => {
     const logger = createLogger(
       {
@@ -54,13 +52,11 @@ export function getSyncWebhookHandler<TPayload, TResult, TSchema extends Validat
       const response = errorToResponse(err);
 
       if (!response) {
-        Sentry.captureException(err);
         const result = BaseError.serialize(err);
         logger.debug("Sending error response");
         return res.status(500).json(result);
       }
 
-      Sentry.captureException(...response.sentry);
       const finalErrorResponse = errorMapper(payload, response);
       logger.debug({ finalErrorResponse }, "Sending error response");
       return res.status(200).json(await validateData(finalErrorResponse, ResponseSchema));
@@ -75,15 +71,6 @@ const errorToResponse = (err: unknown) => {
   if (!normalizedError) {
     return null;
   }
-
-  const sentry = [
-    normalizedError,
-    {
-      extra: {
-        errors: normalizedError.errors,
-      },
-    },
-  ] as const;
 
   const message = normalizedError.message;
 
@@ -102,7 +89,6 @@ const errorToResponse = (err: unknown) => {
   ];
 
   return {
-    sentry,
     errors,
     message,
   };

@@ -7,7 +7,7 @@
     "dev": "pnpm generate && NODE_OPTIONS='--inspect' next dev",
     "build": "pnpm generate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
     "generate": "graphql-codegen",
     "test": "vitest"
@@ -16,14 +16,14 @@
     "schemaVersion": "3.18"
   },
   "dependencies": {
-    "@saleor/app-sdk": "0.50.03",
+    "@saleor/app-sdk": "1.16.0",
     "@saleor/macaw-ui": "1.0.0-pre.4",
     "@urql/exchange-auth": "^1.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "jsdom": "^20.0.3",
-    "next": "14.2.35",
+    "next": "16.4.0",
     "pino": "^8.19.0",
     "pino-pretty": "^11.0.0",
     "react": "18.2.0",
@@ -50,7 +50,7 @@
     "eslint-config-next": "13.1.2",
     "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.2",
-    "typescript": "5.0.4"
+    "typescript": "5.9.3"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",

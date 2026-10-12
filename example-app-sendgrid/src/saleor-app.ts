@@ -1,4 +1,6 @@
-import { APL, FileAPL, SaleorCloudAPL, UpstashAPL } from "@saleor/app-sdk/APL";
+import { APL } from "@saleor/app-sdk/APL";
+import { FileAPL } from "@saleor/app-sdk/APL/file";
+import { UpstashAPL } from "@saleor/app-sdk/APL/upstash";
 import { SaleorApp } from "@saleor/app-sdk/saleor-app";
 
 const aplType = process.env.APL ?? "file";
@@ -14,18 +16,6 @@ switch (aplType) {
     apl = new FileAPL();
 
     break;
-  case "saleor-cloud": {
-    if (!process.env.REST_APL_ENDPOINT || !process.env.REST_APL_TOKEN) {
-      throw new Error("Rest APL is not configured - missing env variables. Check saleor-app.ts");
-    }
-
-    apl = new SaleorCloudAPL({
-      resourceUrl: process.env.REST_APL_ENDPOINT,
-      token: process.env.REST_APL_TOKEN,
-    });
-
-    break;
-  }
   default: {
     throw new Error("Invalid APL config, ");
   }

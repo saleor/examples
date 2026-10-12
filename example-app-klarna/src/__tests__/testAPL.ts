@@ -14,7 +14,6 @@ export class TestAPL implements APL {
 
     return {
       saleorApiUrl: testEnv.TEST_SALEOR_API_URL,
-      domain: new URL(testEnv.TEST_SALEOR_API_URL).hostname,
       jwks: "",
       appId: testEnv.TEST_SALEOR_APP_ID,
       token: testEnv.TEST_SALEOR_APP_TOKEN,
@@ -43,7 +42,6 @@ export class TestAPL implements APL {
     return [
       {
         saleorApiUrl: testEnv.TEST_SALEOR_API_URL,
-        domain: new URL(testEnv.TEST_SALEOR_API_URL).hostname,
         jwks: "",
         appId: testEnv.TEST_SALEOR_APP_ID,
         token: testEnv.TEST_SALEOR_APP_TOKEN,

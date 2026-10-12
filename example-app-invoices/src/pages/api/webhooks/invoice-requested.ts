@@ -1,6 +1,6 @@
-import { SALEOR_API_URL_HEADER } from "@saleor/app-sdk/const";
+import { SALEOR_API_URL_HEADER } from "@saleor/app-sdk/headers";
 import {
-  NextWebhookApiHandler,
+  NextJsWebhookHandler,
   SaleorAsyncWebhook,
 } from "@saleor/app-sdk/handlers/next";
 import { createGraphQLClient } from "../../../lib/create-graphql-client";
@@ -137,7 +137,7 @@ export const invoiceRequestedWebhook =
     event: "INVOICE_REQUESTED",
     apl: saleorApp.apl,
     query: InvoiceRequestedSubscription,
-    onError(error, req, res) {
+    onError(error, req) {
       const saleorApiUrl = req.headers[SALEOR_API_URL_HEADER] as string;
 
       logger.error("Error during webhook handling", { error, saleorApiUrl });
@@ -153,7 +153,7 @@ const invoiceNumberGenerator = new InvoiceNumberGenerator();
  * More logs
  * Extract service
  */
-export const handler: NextWebhookApiHandler<
+export const handler: NextJsWebhookHandler<
   InvoiceRequestedPayloadFragment
 > = async (req, res, context) => {
   const { authData, payload, baseUrl } = context;

@@ -40,8 +40,6 @@ coverage/
 apps/**/generated
 .eslintcache
 
-.sentryclirc
-
 .vscode/
 .cspellcache
 

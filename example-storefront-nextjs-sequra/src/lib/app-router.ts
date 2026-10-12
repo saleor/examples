@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function getCheckoutFromCookiesOrRedirect() {
-	const checkoutId = cookies().get("checkoutId")?.value;
+	const checkoutId = (await cookies()).get("checkoutId")?.value;
 
 	if (!checkoutId) {
 		redirect("/app-router/");

@@ -3,11 +3,10 @@ import { getCheckoutFromCookiesOrRedirect } from "@/lib/app-router";
 import { executeGraphQL } from "@/lib/common";
 import { notFound } from "next/navigation";
 
-export default async function CartSuccessPage({
-	searchParams,
-}: {
-	searchParams: { authorization_token: string | undefined; transaction_id: string };
+export default async function CartSuccessPage(props: {
+	searchParams: Promise<{ authorization_token: string | undefined; transaction_id: string }>;
 }) {
+	const searchParams = await props.searchParams;
 	const checkout = await getCheckoutFromCookiesOrRedirect();
 
 	if (!searchParams.transaction_id) {

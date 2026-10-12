@@ -1,4 +1,5 @@
 import { SaleorSyncWebhook } from "@saleor/app-sdk/handlers/next";
+import { buildSyncWebhookResponsePayload } from "@saleor/app-sdk/handlers/shared";
 import {
   CalculateTaxesEventFragment,
   UntypedCalculateTaxesDocument,
@@ -67,7 +68,7 @@ export default orderCalculateTaxesSyncWebhook.createHandler(
       );
 
       logger.info("Taxes calculated", { calculatedTaxes });
-      return webhookResponse.success(ctx.buildResponse(calculatedTaxes));
+      return webhookResponse.success(buildSyncWebhookResponsePayload<"ORDER_CALCULATE_TAXES">(calculatedTaxes));
     } catch (error) {
       return webhookResponse.error(error);
     }
